@@ -1,0 +1,2 @@
+import{O as e,a as t,j as n}from"./chunk-62JRHF6Z-D3Q3NlnB.js";import{T as r,t as i}from"./jsx-runtime-Cvx0fZjB.js";import{t as a}from"./Provider-C5o49ulJ.js";var o=i(),s={theme:r.BrochureV2,enableGtm:!0},c=n(function(){let n=e(),r={};for(let e of n)e.data&&(r={...r,...e.data});return(0,o.jsx)(a,{data:r,children:(0,o.jsx)(t,{})})});export{c as default,s as handle};
+//# sourceMappingURL=layout-BK_MULvR.js.map
