@@ -1,0 +1,23 @@
+{
+  "name": "tobenx-digital",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tobenx Digital release automation scaffold with CI and semantic versioning.",
+  "scripts": {
+    "lint": "node -e \"console.log('Lint passed: no source files configured yet. Replace this script with your project linter.');\"",
+    "test": "node -e \"console.log('Tests passed: no unit tests configured yet. Replace this script with your project test command.');\"",
+    "build": "node -e \"console.log('Build passed: no build step configured yet. Replace this script with your App build command.');\"",
+    "check": "npm run lint && npm run test && npm run build",
+    "release:dry": "semantic-release --dry-run --no-ci"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.1",
+    "@semantic-release/changelog": "^7.0.0",
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/git": "^11.0.1",
+    "@semantic-release/npm": "^12.0.0",
+    "@semantic-release/release-notes-generator": "^14.0.0",
+    "semantic-release": "^25.0.9"
+  }
+}

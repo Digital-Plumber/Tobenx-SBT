@@ -1,0 +1,47 @@
+name: Create PR from Feature Branch
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'feat/**'
+
+jobs:
+  create-pr:
+    name: Create or update PR to main
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check if a PR already exists
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list --base main --head "${{ github.ref_name }}" --json number --jq '.[0].number // empty')
+          if [ -n "$PR_NUMBER" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create pull request
+        if: steps.pr.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base main \
+            --head "${{ github.ref_name }}" \
+            --title "feat: ${GITHUB_REF_NAME}" \
+            --body "## Summary
+
+- Automated PR from branch ${{ github.ref_name }}
+- CI validation to run before merge
+- Auto-merge enabled after successful checks"
