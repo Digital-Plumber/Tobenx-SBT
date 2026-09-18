@@ -1,2 +1,0 @@
-import{F as e}from"./chunk-62JRHF6Z-D3Q3NlnB.js";import{t}from"./jsx-runtime-Cvx0fZjB.js";var n=e({default:()=>i}),r=t();function i(e){return(0,r.jsx)(`svg`,{fill:`none`,viewBox:`0 0 20 20`,"aria-hidden":`true`,...e,children:(0,r.jsx)(`path`,{stroke:`currentColor`,strokeLinecap:`round`,d:`m4.34 4.34 11.32 11.32M15.66 4.34 4.34 15.66`})})}export{i as n,n as t};
-//# sourceMappingURL=Close-B_yVuI9E.js.map

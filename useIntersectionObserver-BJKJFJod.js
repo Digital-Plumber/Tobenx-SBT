@@ -1,2 +1,0 @@
-import{I as e,N as t}from"./chunk-62JRHF6Z-D3Q3NlnB.js";var n=e(t(),1),r=(e,t,r)=>{(0,n.useEffect)(()=>{if(!e)return;let n=typeof r==`function`?r():r,i=new IntersectionObserver(t,n);if(Array.isArray(e.current))e.current.forEach(e=>{i.observe(e)});else if(e.current){let t=e.current;i.observe(t)}return()=>i.disconnect()},[t,r,e])};export{r as t};
-//# sourceMappingURL=useIntersectionObserver-BJKJFJod.js.map
