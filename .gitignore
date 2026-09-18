@@ -6,3 +6,37 @@ dist-ssr/
 coverage/
 .DS_Store
 npm-debug.log*
+
+# Node & package manager
+package-lock.json
+yarn.lock
+.npm/
+
+# Build/tool caches
+.parcel-cache/
+/.next/
+/.nuxt/
+/.turbo/
+
+# Logs
+logs
+*.log
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Local env overrides
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
