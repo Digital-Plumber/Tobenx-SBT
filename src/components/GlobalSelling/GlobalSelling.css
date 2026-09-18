@@ -1,0 +1,336 @@
+/* Global Selling Section Styles */
+.global-selling-section {
+  background: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.05), transparent 50%), #02090a;
+}
+
+.global-tag {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.global-sandbox {
+  padding: 1.5rem;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+}
+
+@media (min-width: 768px) {
+  .global-sandbox {
+    padding: 2.5rem;
+  }
+}
+
+.sandbox-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 960px) {
+  .sandbox-grid {
+    grid-template-columns: 1fr 1.3fr;
+    gap: 3rem;
+  }
+}
+
+/* Left Product Simulator */
+.sandbox-product-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.product-switch-tabs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+}
+
+.product-pill-btn {
+  padding: 0.45rem 0.9rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.product-pill-btn.is-active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border-color: var(--color-border-hover);
+}
+
+.preview-product-card {
+  background: #080e10;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.preview-card-top {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.product-img-box {
+  width: 100px;
+  height: 110px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.product-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-tagline {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-brand-light-green);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+.product-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.product-sub {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.localized-price-tag {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.localized-price-tag .symbol {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.localized-price-tag .amount {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.localized-price-tag .currency-code {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  margin-left: 0.25rem;
+}
+
+.localized-badges-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.loc-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+.localized-buy-btn {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.btn-price-pill {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+}
+
+.shipping-dispatch-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.dispatch-dot {
+  width: 7px;
+  height: 7px;
+  background-color: var(--color-brand-light-green);
+  border-radius: 50%;
+}
+
+/* Right Countries Grid */
+.sandbox-countries-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.panel-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.active-region-badge {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  background: rgba(56, 189, 248, 0.15);
+  color: #7dd3fc;
+  border-radius: var(--radius-full);
+}
+
+.panel-desc {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.country-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 500px) {
+  .country-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.country-select-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.85rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.country-select-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+}
+
+.country-select-card.is-selected {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: var(--color-brand-light-green);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+}
+
+.country-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.country-flag {
+  font-size: 1.25rem;
+}
+
+.country-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.country-card-footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+
+.currency-label {
+  color: var(--color-text-muted);
+}
+
+.sample-price {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Benefits Callout */
+.markets-benefit-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  margin-top: auto;
+}
+
+.benefit-icon-box {
+  padding: 0.5rem;
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.markets-benefit-callout strong {
+  display: block;
+  font-size: 0.9375rem;
+  color: var(--color-text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.markets-benefit-callout p {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin: 0;
+}

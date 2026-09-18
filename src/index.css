@@ -1,0 +1,99 @@
+/* Import official Shopify Tailwind v4 bundle styles */
+@import './shopify-theme.css';
+
+/* Global variables and modern enhancements */
+:root {
+  --color-bg-primary: #000000;
+  --color-bg-surface: #02090a;
+  --color-bg-card: #0c1417;
+  --color-bg-card-hover: #121f24;
+  --color-brand-green: #008060;
+  --color-brand-light-green: #6cd484;
+  --color-brand-purple: #5433eb;
+  
+  --font-sans: Shopify-Inter, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom interactive animation utilities */
+@keyframes globePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+.globe-pulse {
+  animation: globePulse 4s ease-in-out infinite;
+}
+
+@keyframes floatSmooth {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.floating-card {
+  animation: floatSmooth 6s ease-in-out infinite;
+}
+
+/* Slide up animation for floating video popup */
+@keyframes slideUp {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 3D Perspective Card Container */
+.perspective-container {
+  perspective: 1200px;
+}
+
+.card-3d-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Sound effect wave animation */
+@keyframes soundWave {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+.sound-bar {
+  display: inline-block;
+  width: 3px;
+  height: 14px;
+  background-color: var(--color-brand-light-green);
+  border-radius: 2px;
+  animation: soundWave 0.8s ease-in-out infinite;
+}
+.sound-bar:nth-child(2) { animation-delay: 0.2s; }
+.sound-bar:nth-child(3) { animation-delay: 0.4s; }
