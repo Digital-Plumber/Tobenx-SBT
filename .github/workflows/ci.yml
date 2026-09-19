@@ -1,14 +1,14 @@
-name: CI Pipeline
+name: Consolidated CI
 
 on:
   push:
     branches:
-      - "feature/**"
-      - "feat/**"
-      - "main"
+      - 'feature/**'
+      - 'feat/**'
+      - 'main'
   pull_request:
     branches:
-      - "main"
+      - 'main'
     types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
@@ -16,24 +16,26 @@ permissions:
   pull-requests: write
   packages: write
 
+env:
+  NODE_VERSION: '20'
+
 jobs:
-  create-or-update-pr:
+  # Create or update a PR when a feature branch is pushed
+  create_pr:
     if: github.event_name == 'push' && (startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/feat/'))
     name: Create or update PR
+    runs-on: ubuntu-latest
     outputs:
       pr_number: ${{ steps.create_pr.outputs.pr_number }}
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Determine branch name
+      - name: Determine branch
         id: vars
-        run: |
-          BRANCH=${GITHUB_REF#refs/heads/}
-          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+        run: echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
 
-      - name: Create or update PR via GitHub API
+      - name: Create or update PR (github-script)
         id: create_pr
         uses: actions/github-script@v7
         with:
@@ -41,64 +43,44 @@ jobs:
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            const branch = process.env.branch || process.env.GITHUB_REF_NAME || (context.payload.ref || '').replace('refs/heads/', '');
-            if (!branch) return core.setFailed('Unable to determine branch name');
+            const branch = process.env.branch || context.payload.ref?.replace('refs/heads/', '') || github.context.ref.replace('refs/heads/', '');
+            if (!branch) return core.setFailed('Branch name not determined');
 
-            // use the provided authenticated `github` client (github-script injects it)
-            const octokit = github;
-
-            // look for existing PR to main
-            const pulls = await octokit.rest.pulls.list({ owner, repo, head: `${owner}:${branch}`, base: 'main' });
+            // find existing PR to main
+            const pulls = await github.rest.pulls.list({ owner, repo, head: `${owner}:${branch}`, base: 'main' });
             if (pulls.data && pulls.data.length > 0) {
-              core.info(`PR already exists: #${pulls.data[0].number}`);
+              core.info(`PR exists: #${pulls.data[0].number}`);
               core.setOutput('pr_number', String(pulls.data[0].number));
               return;
             }
 
-            const title = `feat: ${branch}`;
-            const body = `## Summary\n\n- Automated PR from branch ${branch}\n- CI validation to run before merge\n- Auto-merge enabled after successful checks\n`;
-            const pr = await octokit.rest.pulls.create({ owner, repo, title, head: branch, base: 'main', body });
+            const pr = await github.rest.pulls.create({ owner, repo, title: `feat: ${branch}`, head: branch, base: 'main', body: `Automated PR from ${branch}` });
             core.setOutput('pr_number', String(pr.data.number));
             core.info(`Created PR #${pr.data.number}`);
 
-            try {
-              await octokit.request('PUT /repos/{owner}/{repo}/pulls/{pull_number}/auto-merge', {
-                owner,
-                repo,
-                pull_number: pr.data.number,
-                merge_method: 'merge'
-              });
-              core.info('Enabled auto-merge for PR #' + pr.data.number);
-            } catch (err) {
-              core.warning('Could not enable auto-merge: ' + err.message);
-            }
-            // expose pr_number as step output
-            core.setOutput('pr_number', pr.data ? String(pr.data.number) : '');
-
-  validation:
+  # Validate PRs and run tests; also runs for feature pushes to validate before auto-merge
+  validate:
     if: |
       github.event_name == 'pull_request' || (
         github.event_name == 'push' && (
           startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/feat/')
         )
       )
-    name: Validate PR (tests, lint, dry-run release)
+    name: Validate (lint, test, version-check)
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: read
-
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -106,29 +88,29 @@ jobs:
       - name: Lint
         run: npm run lint || true
 
-      - name: Run tests
+      - name: Test
         run: npm test
 
-      - name: Validate versioning (semantic-release dry-run)
+      - name: Semantic-release dry-run (validate versioning)
         run: npx semantic-release --dry-run --no-ci
 
-  auto-merge:
-    needs: validation
-    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
-    name: Enable auto-merge after successful checks
+  # Enable auto-merge when validation succeeds for PRs
+  auto_merge:
+    needs: validate
+    if: github.event_name == 'pull_request' && github.event.pull_request?.draft == false
+    name: Enable auto-merge
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-
     steps:
-      - name: Auto-merge pull request
+      - name: Enable auto-merge
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const pr = context.payload.pull_request;
-            if (!pr) return core.setFailed('No PR in context');
+            if (!pr) return core.setFailed('No PR available');
             try {
               await github.request('PUT /repos/{owner}/{repo}/pulls/{pull_number}/auto-merge', {
                 owner: context.repo.owner,
@@ -138,26 +120,23 @@ jobs:
               });
               core.info('Auto-merge enabled for PR #' + pr.number);
             } catch (err) {
-              core.warning('Failed to enable auto-merge: ' + err.message);
+              core.warning('Auto-merge enable failed: ' + err.message);
             }
 
+  # Release job runs on main pushes
   release:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
-    name: Release on main
+    name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-
-      - name: Install dependencies
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install
         run: npm ci
-
-      - name: Run semantic-release
+      - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
