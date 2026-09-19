@@ -18,7 +18,9 @@ env:
   NODE_VERSION: "20"
 
 jobs:
+  # ──────────────────────────────────────────────────────────────
   # Create or update a PR when a feature branch is pushed
+  # ──────────────────────────────────────────────────────────────
   create_pr:
     if: github.event_name == 'push' && (startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/feat/'))
     name: Create or update PR
@@ -27,48 +29,63 @@ jobs:
       contents: write
       pull-requests: write
     outputs:
-      pr_number: \${{ steps.create_pr.outputs.pr_number }}
+      pr_number: ${{ steps.create_pr.outputs.pr_number }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Determine branch
+      - name: Determine branch name
         id: vars
-        run: echo "branch=\({GITHUB_REF#refs/heads/}" >> \)GITHUB_OUTPUT
+        run: echo "branch=${GITHUB_REF#refs/heads/}" >> "$GITHUB_OUTPUT"
 
-      - name: Create or update PR (github-script)
+      - name: Create or update PR
         id: create_pr
         uses: actions/github-script@v7
         env:
-          BRANCH_NAME: \${{ steps.vars.outputs.branch }}
+          BRANCH_NAME: ${{ steps.vars.outputs.branch }}
         with:
-          github-token: \${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
             const owner = context.repo.owner;
-            const repo = context.repo.repo;
+            const repo  = context.repo.repo;
             const branch = process.env.BRANCH_NAME;
-            
-            if (!branch) return core.setFailed('Branch name not determined');
 
-            // Find existing PR to main
-            const pulls = await github.rest.pulls.list({ owner, repo, head: `${owner}:${branch}`, base: 'main' });
-            if (pulls.data && pulls.data.length > 0) {
-              core.info(`PR exists: #${pulls.data[0].number}`);
-              core.setOutput('pr_number', String(pulls.data[0].number));
+            if (!branch) return core.setFailed('Branch name could not be determined');
+
+            // Check for an existing open PR targeting main
+            const { data: pulls } = await github.rest.pulls.list({
+              owner, repo,
+              head: `${owner}:${branch}`,
+              base: 'main',
+              state: 'open',
+            });
+
+            if (pulls.length > 0) {
+              core.info(`Open PR already exists: #${pulls[0].number}`);
+              core.setOutput('pr_number', String(pulls[0].number));
               return;
             }
 
-            // Create new PR
-            const pr = await github.rest.pulls.create({ owner, repo, title: `feat: ${branch}`, head: branch, base: 'main', body: `Automated PR from ${branch}` });
-            core.setOutput('pr_number', String(pr.data.number));
-            core.info(`Created PR #${pr.data.number}`);
+            // No existing PR — create one
+            const { data: pr } = await github.rest.pulls.create({
+              owner, repo,
+              title: `feat: ${branch}`,
+              head: branch,
+              base: 'main',
+              body: `Automated PR from \`${branch}\``,
+            });
+            core.setOutput('pr_number', String(pr.number));
+            core.info(`Created PR #${pr.number}`);
 
-  # Validate PRs and run tests
+  # ──────────────────────────────────────────────────────────────
+  # Lint, test, and validate versioning on feature pushes and PRs
+  # ──────────────────────────────────────────────────────────────
   validate:
     if: |
       github.event_name == 'pull_request' || (
         github.event_name == 'push' && (
-          startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/feat/')
+          startsWith(github.ref, 'refs/heads/feature/') ||
+          startsWith(github.ref, 'refs/heads/feat/')
         )
       )
     name: Validate (lint, test, version-check)
@@ -76,78 +93,97 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout (full history for semantic-release dry-run)
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Node
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: \${{ env.NODE_VERSION }}
+          node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
 
       - name: Install dependencies
         run: npm ci
 
       - name: Lint
-        run: npm run lint || true
+        run: npm run lint
 
       - name: Test
         run: npm test
 
-      - name: Semantic-release dry-run (validate versioning)
-        run: npx semantic-release --dry-run --no-ci
+      - name: Semantic-release dry-run (validate commit messages & versioning)
+        run: npx semantic-release --dry-run
         env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Enable auto-merge when validation succeeds for PRs
+  # ──────────────────────────────────────────────────────────────
+  # Enable auto-merge once validation passes (PRs only)
+  # ──────────────────────────────────────────────────────────────
   auto_merge:
     needs: validate
-    if: github.event_name == 'pull_request' && (github.event.pull_request != null && github.event.pull_request.draft == false)
+    if: |
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.draft == false
     name: Enable auto-merge
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
     steps:
-      - name: Enable auto-merge
+      - name: Enable auto-merge on PR
         uses: actions/github-script@v7
         with:
-          github-token: \${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const pr = context.payload.pull_request;
-            if (!pr) return core.setFailed('No PR available');
+            if (!pr) return core.setFailed('No pull_request payload found');
             try {
-              await github.request('PUT /repos/{owner}/{repo}/pulls/{pull_number}/auto-merge', {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: pr.number,
-                merge_method: 'merge'
-              });
-              core.info('Auto-merge enabled for PR #' + pr.number);
+              await github.request(
+                'PUT /repos/{owner}/{repo}/pulls/{pull_number}/auto-merge',
+                {
+                  owner: context.repo.owner,
+                  repo:  context.repo.repo,
+                  pull_number: pr.number,
+                  merge_method: 'merge',
+                }
+              );
+              core.info(`Auto-merge enabled for PR #${pr.number}`);
             } catch (err) {
-              core.warning('Auto-merge enable failed: ' + err.message);
+              core.warning(`Auto-merge failed: ${err.message}`);
             }
 
-  # Release job runs on main pushes
+  # ──────────────────────────────────────────────────────────────
+  # Production release — runs only on pushes to main
+  # (semantic-release handles tagging, CHANGELOG, and git commit)
+  # ──────────────────────────────────────────────────────────────
   release:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     name: Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
       pull-requests: write
       packages: write
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
+      - name: Checkout (full history required by semantic-release)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: \${{ env.NODE_VERSION }}
-      - name: Install
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
         run: npm ci
-      - name: Release
+
+      - name: Run semantic-release
         env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: \${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN || '' }}
         run: npx semantic-release
