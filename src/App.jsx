@@ -2,6 +2,8 @@ import React from 'react';
 import SvgSprite from './components/SvgSprite';
 import Header from './components/Header/Header';
 import HeroSection from './components/sections/HeroSection';
+import SbtSection from './components/sections/SbtSection';
+import SeasonXSection from './components/sections/SeasonXSection';
 import LogosSection from './components/sections/LogosSection';
 import AgenticChatSection from './components/sections/AgenticChatSection';
 import SellMoreInMorePlaces from './components/sections/SellMoreInMorePlaces';
@@ -29,6 +31,8 @@ export default function App() {
       {/* Main Content Stream */}
       <main id="main">
         <HeroSection />
+        <SbtSection />
+        <SeasonXSection />
         <LogosSection />
         <AgenticChatSection />
         <SellMoreInMorePlaces />

@@ -27,6 +27,11 @@ const TAB_GROUPS = [
     label: 'Sell everywhere people shop.',
     stores: [
       {
+        url: 'https://tobenx.com/',
+        name: 'tobenx.com',
+        img: '/tobenx-logo-full.png',
+      },
+      {
         url: 'https://www.stevemadden.com/',
         name: 'stevemadden.com',
         img: 'https://cdn.shopify.com/b/shopify-brochure2-assets/7f3f5f3a6e7b9e7a4f3f5f3a6e7b9e7a.png',
