@@ -119,11 +119,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # ──────────────────────────────────────────────────────────────
-  # Enable auto-merge once validation passes
-  #   • push path  → PR number comes from create_pr output
+  # Merge PR to main once validation passes
+  #   • Uses PR_TOKEN (PAT) so the resulting push to main re-triggers
+  #     downstream workflows (GITHUB_TOKEN pushes are suppressed).
+  #   • Push path  → PR number comes from create_pr output
   #   • PR event path → PR number comes from event payload
   # ──────────────────────────────────────────────────────────────
-  auto_merge:
+  merge_pr:
     needs: [create_pr, validate]
     if: |
       always() &&
@@ -137,38 +139,39 @@ jobs:
           needs.create_pr.outputs.pr_number != ''
         )
       )
-    name: Enable auto-merge
+    name: Merge PR to main
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
     steps:
-      - name: Enable auto-merge on PR
+      - name: Merge PR
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # PAT required — GITHUB_TOKEN merges are suppressed by GitHub
+          # and will NOT re-trigger the release workflow on main.
+          # Add a repo secret named PR_TOKEN with a PAT that has repo scope.
+          github-token: ${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
-            // Push path: PR number from create_pr job output
-            // PR event path: PR number from event payload
             const prNumber =
               context.payload.pull_request?.number ||
               parseInt('${{ needs.create_pr.outputs.pr_number }}', 10);
 
             if (!prNumber) return core.setFailed('No PR number available');
+
             try {
-              await github.request(
-                'PUT /repos/{owner}/{repo}/pulls/{pull_number}/auto-merge',
-                {
-                  owner: context.repo.owner,
-                  repo:  context.repo.repo,
-                  pull_number: prNumber,
-                  merge_method: 'merge',
-                }
-              );
-              core.info(`Auto-merge enabled for PR #${prNumber}`);
+              const { data } = await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo:  context.repo.repo,
+                pull_number: prNumber,
+                merge_method: 'merge',
+                commit_title: `chore: merge PR #${prNumber} to main [ci]`,
+              });
+              core.info(`PR #${prNumber} merged — SHA: ${data.sha}`);
             } catch (err) {
-              core.warning(`Auto-merge failed: ${err.message}`);
+              core.setFailed(`Merge failed: ${err.message}`);
             }
 
   # release is handled exclusively by release-and-merge.yml
-  # to avoid race conditions from two concurrent semantic-release runs.
+  # (triggered via workflow_run after CI completes on main)
+
