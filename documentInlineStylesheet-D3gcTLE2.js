@@ -1,2 +1,0 @@
-function e(){let e={},t=navigator.connection;return t?(t.effectiveType!==void 0&&(e.clientEct=t.effectiveType),t.rtt!==void 0&&(e.clientRtt=String(t.rtt)),t.downlink!==void 0&&(e.clientDownlink=String(t.downlink)),t.saveData!==void 0&&(e.clientSaveData=String(t.saveData)),e):e}var t=``,n=``;function r(){t=window.location.pathname,n=document.querySelector(`style[data-inline-stylesheet]`)?.textContent??``}function i(){return typeof window>`u`?``:window.location.pathname===t?n:``}export{i as n,e as r,r as t};
-//# sourceMappingURL=documentInlineStylesheet-D3gcTLE2.js.map

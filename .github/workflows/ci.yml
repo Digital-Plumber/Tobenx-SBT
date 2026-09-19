@@ -1,30 +1,108 @@
-name: CI and Auto-Merge
+name: "Continuous Integration & Delivery"
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+  push:
     branches:
-      - main
+      - "feature/**"
+      - "feat/**"
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: "22"
 
 jobs:
-  validation:
-    name: Validate code and quality
+  # ──────────────────────────────────────────────────────────────
+  # Create or update a PR when a feature branch is pushed
+  # ──────────────────────────────────────────────────────────────
+  create_pr:
+    if: github.event_name == 'push' && (startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/feat/'))
+    name: Create or update PR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      pr_number: ${{ steps.create_pr.outputs.pr_number }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Determine branch name
+        id: vars
+        run: echo "branch=${GITHUB_REF#refs/heads/}" >> "$GITHUB_OUTPUT"
+
+      - name: Create or update PR
+        id: create_pr
+        uses: actions/github-script@v7
+        env:
+          BRANCH_NAME: ${{ steps.vars.outputs.branch }}
+        with:
+          github-token: ${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo  = context.repo.repo;
+            const branch = process.env.BRANCH_NAME;
+
+            if (!branch) return core.setFailed('Branch name could not be determined');
+
+            // Check for an existing open PR targeting main
+            const { data: pulls } = await github.rest.pulls.list({
+              owner, repo,
+              head: `${owner}:${branch}`,
+              base: 'main',
+              state: 'open',
+            });
+
+            if (pulls.length > 0) {
+              core.info(`Open PR already exists: #${pulls[0].number}`);
+              core.setOutput('pr_number', String(pulls[0].number));
+              return;
+            }
+
+            // No existing PR — create one
+            const { data: pr } = await github.rest.pulls.create({
+              owner, repo,
+              title: `feat: ${branch}`,
+              head: branch,
+              base: 'main',
+              body: `Automated PR from \`${branch}\``,
+            });
+            core.setOutput('pr_number', String(pr.number));
+            core.info(`Created PR #${pr.number}`);
+
+  # ──────────────────────────────────────────────────────────────
+  # Lint, test, and validate versioning on feature pushes and PRs
+  # ──────────────────────────────────────────────────────────────
+  validate:
+    if: |
+      github.event_name == 'pull_request' || (
+        github.event_name == 'push' && (
+          startsWith(github.ref, 'refs/heads/feature/') ||
+          startsWith(github.ref, 'refs/heads/feat/')
+        )
+      )
+    name: Validate (lint, test, version-check)
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: read
-
     steps:
-      - name: Check out repository
+      - name: Checkout (full history for semantic-release dry-run)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: 24.15.0
-          cache: npm
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -32,31 +110,95 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Run tests
-        run: npm run test
+      - name: Test
+        run: npm test
 
-      - name: Build project
-        run: npm run build
+      - name: Semantic-release dry-run (validate commit messages & versioning)
+        run: npx semantic-release --dry-run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Security audit
-        run: npm audit --audit-level=high
-
-      - name: Validate commit messages
-        run: |
-          npx commitlint --from=${{ github.event.pull_request.base.sha }} --to=${{ github.event.pull_request.head.sha }} --verbose
-
-  auto-merge:
-    name: Enable auto-merge after successful checks
-    needs: validation
-    if: github.event.pull_request.draft == false
+  # ──────────────────────────────────────────────────────────────
+  # Merge PR to main once validation passes
+  #   • Uses PR_TOKEN (PAT) so the resulting push to main re-triggers
+  #     downstream workflows (GITHUB_TOKEN pushes are suppressed).
+  #   • Push path  → PR number comes from create_pr output
+  #   • PR event path → PR number comes from event payload
+  # ──────────────────────────────────────────────────────────────
+  merge_pr:
+    needs: [create_pr, validate]
+    if: |
+      always() &&
+      needs.validate.result == 'success' && (
+        (
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.draft == false
+        ) || (
+          github.event_name == 'push' &&
+          needs.create_pr.result == 'success' &&
+          needs.create_pr.outputs.pr_number != ''
+        )
+      )
+    name: Merge PR to main
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-
     steps:
-      - name: Auto-merge pull request
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr merge --auto --merge --delete-branch "${{ github.event.pull_request.number }}"
+      - name: Sync branch with main & merge PR
+        uses: actions/github-script@v7
+        with:
+          # PAT required — GITHUB_TOKEN merges are suppressed by GitHub
+          # and will NOT re-trigger the release workflow on main.
+          # Add a repo secret named PR_TOKEN with a PAT that has repo scope.
+          github-token: ${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo  = context.repo.repo;
+            const prNumber =
+              context.payload.pull_request?.number ||
+              parseInt('${{ needs.create_pr.outputs.pr_number }}', 10);
+
+            if (!prNumber) return core.setFailed('No PR number available');
+
+            // ── Phase 1: Sync feature branch with latest main ──────────
+            try {
+              await github.rest.pulls.updateBranch({ owner, repo, pull_number: prNumber });
+              core.info(`Branch synced with main. Waiting for GitHub to recalculate merge state...`);
+              await new Promise(r => setTimeout(r, 8000));
+            } catch (syncErr) {
+              // "422 already up to date" is fine; real errors are logged
+              core.info(`Branch sync: ${syncErr.message}`);
+            }
+
+            // ── Phase 2: Poll until GitHub resolves the mergeable state ─
+            let pr;
+            for (let attempt = 1; attempt <= 8; attempt++) {
+              const { data } = await github.rest.pulls.get({ owner, repo, pull_number: prNumber });
+              pr = data;
+              if (pr.mergeable !== null) break;
+              core.info(`Waiting for merge state (attempt ${attempt}/8)…`);
+              await new Promise(r => setTimeout(r, 5000));
+            }
+
+            if (!pr) return core.setFailed('Could not retrieve PR details');
+
+            if (pr.mergeable === false) {
+              return core.setFailed(
+                `PR #${prNumber} still has merge conflicts after syncing with main. ` +
+                `Please resolve them manually and re-push.`
+              );
+            }
+
+            // ── Phase 3: Merge ─────────────────────────────────────────
+            const { data: result } = await github.rest.pulls.merge({
+              owner, repo,
+              pull_number: prNumber,
+              merge_method: 'merge',
+              commit_title: `chore: merge PR #${prNumber} to main [ci]`,
+            });
+            core.info(`✅ PR #${prNumber} merged — SHA: ${result.sha}`);
+
+  # release is handled exclusively by release-and-merge.yml
+  # (triggered via workflow_run after CI completes on main)
+

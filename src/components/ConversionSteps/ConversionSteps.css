@@ -1,0 +1,161 @@
+/* Conversion Steps Styles */
+.conversion-steps-section {
+  background: radial-gradient(circle at 50% 10%, rgba(16, 185, 129, 0.06), transparent 70%), #02090a;
+}
+
+.conversion-tag {
+  color: var(--color-brand-light-green);
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.step-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+}
+
+.step-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-border-hover);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.step-card-image-box {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.step-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.step-card:hover .step-img {
+  transform: scale(1.06);
+}
+
+.step-number-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(2, 9, 10, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-border-subtle);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.step-card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.step-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-brand-light-green);
+  margin-bottom: 0.75rem;
+}
+
+.step-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.step-desc {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Take Your Shot Callout Box */
+.take-your-shot-box {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(84, 51, 235, 0.12)), #0c1417;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--radius-xl);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .take-your-shot-box {
+    padding: 4rem 3rem;
+  }
+}
+
+.shot-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.shot-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .shot-title {
+    font-size: 2.75rem;
+  }
+}
+
+.shot-desc {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.shot-cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-large {
+  padding: 1rem 2.25rem;
+  font-size: 1.0625rem;
+}
+
+.shot-subtext {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}

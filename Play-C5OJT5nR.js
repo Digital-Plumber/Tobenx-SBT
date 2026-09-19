@@ -1,2 +1,0 @@
-import{F as e}from"./chunk-62JRHF6Z-D3Q3NlnB.js";import{t}from"./jsx-runtime-Cvx0fZjB.js";var n=e({default:()=>i}),r=t();function i(e){return(0,r.jsx)(`svg`,{fill:`none`,viewBox:`0 0 20 20`,"aria-hidden":`true`,...e,children:(0,r.jsx)(`path`,{stroke:`currentColor`,strokeLinecap:`round`,strokeLinejoin:`round`,d:`M4.5 15.53V4.47a2 2 0 0 1 3-1.73l9.52 5.53a2 2 0 0 1 0 3.46L7.5 17.26a2 2 0 0 1-3-1.73Z`})})}export{n,i as t};
-//# sourceMappingURL=Play-C5OJT5nR.js.map
