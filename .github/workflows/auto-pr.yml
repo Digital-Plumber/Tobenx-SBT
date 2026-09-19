@@ -3,47 +3,64 @@ name: Create PR from Feature Branch
 on:
   push:
     branches:
-      - 'feature/**'
-      - 'feat/**'
+      - "feature/**"
+      - "feat/**"
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   create-pr:
     name: Create or update PR to main
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Check if a PR already exists
-        id: pr
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Determine branch name
+        id: vars
         run: |
-          PR_NUMBER=$(gh pr list --base main --head "${{ github.ref_name }}" --json number --jq '.[0].number // empty')
-          if [ -n "$PR_NUMBER" ]; then
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-            echo "number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+          # prefer github.ref_name when available, fallback to parsing GITHUB_REF
+          if [ -n "${GITHUB_REF_NAME}" ]; then
+            echo "branch=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
           else
-            echo "exists=false" >> "$GITHUB_OUTPUT"
+            BRANCH=${GITHUB_REF#refs/heads/}
+            echo "branch=$BRANCH" >> $GITHUB_OUTPUT
           fi
 
-      - name: Create pull request
-        if: steps.pr.outputs.exists == 'false'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr create \
-            --base main \
-            --head "${{ github.ref_name }}" \
-            --title "feat: ${GITHUB_REF_NAME}" \
-            --body-file - <<'PR_BODY'
-## Summary
+      - name: Create or update pull request via GitHub API
+        id: pr
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const branch = process.env.INPUT_BRANCH || core.getInput('branch') || process.env.branch || process.env.BRANCH;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
 
-- Automated PR from branch ${{ github.ref_name }}
-- CI validation to run before merge
-- Auto-merge enabled after successful checks
-PR_BODY
+            // normalize branch name
+            const branchName = branch || (context.payload.ref || '').replace('refs/heads/', '');
+            if (!branchName) {
+              core.setFailed('Unable to determine branch name');
+              return;
+            }
+
+            // search for existing PR from this branch to main
+            const pulls = await github.rest.pulls.list({ owner, repo, head: `${owner}:${branchName}`, base: 'main' });
+            if (pulls.data && pulls.data.length > 0) {
+              const existing = pulls.data[0];
+              core.setOutput('exists', 'true');
+              core.setOutput('number', String(existing.number));
+              core.info(`PR already exists: #${existing.number}`);
+              return;
+            }
+
+            // create PR
+            const title = `feat: ${branchName}`;
+            const body = `## Summary\n\n- Automated PR from branch ${branchName}\n- CI validation to run before merge\n- Auto-merge enabled after successful checks\n`;
+            const pr = await github.rest.pulls.create({ owner, repo, title, head: branchName, base: 'main', body });
+            core.setOutput('exists', 'false');
+            core.setOutput('number', String(pr.data.number));
+            core.info(`Created PR #${pr.data.number}`);
