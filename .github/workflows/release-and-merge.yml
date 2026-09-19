@@ -1,9 +1,12 @@
-name: Release and Auto Merge
+name: "Production Release"
 
 on:
   push:
     branches:
-      - main
+      - "main"
+
+permissions:
+  contents: read
 
 jobs:
   release:
@@ -24,14 +27,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24.15.0
-          cache: npm
+          node-version: "24.15.0"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
 
       - name: Validate project
         run: npm run check
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-format and validation fixes [skip ci]"
+          branch: main
 
       - name: Semantic release
         env:
