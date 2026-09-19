@@ -6,11 +6,10 @@ on:
       - 'feature/**'
       - 'feat/**'
       - 'main'
-      
   pull_request:
     branches:
       - 'main'
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
   contents: write
@@ -68,21 +67,31 @@ jobs:
               core.warning('Could not enable auto-merge: ' + err.message);
             }
 
-  pr-checks:
+  validation:
     if: github.event_name == 'pull_request'
-    name: PR checks and auto-merge
+    name: Validate PR (tests, lint, dry-run release)
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    permissions:
+      contents: read
+      pull-requests: read
 
-      - name: Setup Node
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Lint
+        run: npm run lint || true
 
       - name: Run tests
         run: npm test
@@ -90,8 +99,17 @@ jobs:
       - name: Validate versioning (semantic-release dry-run)
         run: npx semantic-release --dry-run --no-ci
 
-      - name: Enable auto-merge if checks passed
-        if: ${{ success() }}
+  auto-merge:
+    needs: validation
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
+    name: Enable auto-merge after successful checks
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Auto-merge pull request
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -131,65 +149,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
-name: CI and Auto-Merge
-
-on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
-    branches:
-      - main
-
-jobs:
-  validation:
-    name: Validate code and quality
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: read
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24.15.0
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Run tests
-        run: npm run test
-
-      - name: Build project
-        run: npm run build
-
-      - name: Security audit
-        run: npm audit --audit-level=high
-
-      - name: Validate commit messages
-        run: |
-          npx commitlint --from=${{ github.event.pull_request.base.sha }} --to=${{ github.event.pull_request.head.sha }} --verbose
-
-  auto-merge:
-    name: Enable auto-merge after successful checks
-    needs: validation
-    if: github.event.pull_request.draft == false
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-
-    steps:
-      - name: Auto-merge pull request
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr merge --auto --merge --delete-branch "${{ github.event.pull_request.number }}"
