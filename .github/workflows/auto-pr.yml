@@ -40,8 +40,10 @@ jobs:
             --base main \
             --head "${{ github.ref_name }}" \
             --title "feat: ${GITHUB_REF_NAME}" \
-            --body "## Summary
+            --body-file - <<'PR_BODY'
+## Summary
 
 - Automated PR from branch ${{ github.ref_name }}
 - CI validation to run before merge
-- Auto-merge enabled after successful checks"
+- Auto-merge enabled after successful checks
+PR_BODY
