@@ -119,13 +119,24 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # ──────────────────────────────────────────────────────────────
-  # Enable auto-merge once validation passes (PRs only)
+  # Enable auto-merge once validation passes
+  #   • push path  → PR number comes from create_pr output
+  #   • PR event path → PR number comes from event payload
   # ──────────────────────────────────────────────────────────────
   auto_merge:
-    needs: validate
+    needs: [create_pr, validate]
     if: |
-      github.event_name == 'pull_request' &&
-      github.event.pull_request.draft == false
+      always() &&
+      needs.validate.result == 'success' && (
+        (
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.draft == false
+        ) || (
+          github.event_name == 'push' &&
+          needs.create_pr.result == 'success' &&
+          needs.create_pr.outputs.pr_number != ''
+        )
+      )
     name: Enable auto-merge
     runs-on: ubuntu-latest
     permissions:
@@ -137,19 +148,24 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const pr = context.payload.pull_request;
-            if (!pr) return core.setFailed('No pull_request payload found');
+            // Push path: PR number from create_pr job output
+            // PR event path: PR number from event payload
+            const prNumber =
+              context.payload.pull_request?.number ||
+              parseInt('${{ needs.create_pr.outputs.pr_number }}', 10);
+
+            if (!prNumber) return core.setFailed('No PR number available');
             try {
               await github.request(
                 'PUT /repos/{owner}/{repo}/pulls/{pull_number}/auto-merge',
                 {
                   owner: context.repo.owner,
                   repo:  context.repo.repo,
-                  pull_number: pr.number,
+                  pull_number: prNumber,
                   merge_method: 'merge',
                 }
               );
-              core.info(`Auto-merge enabled for PR #${pr.number}`);
+              core.info(`Auto-merge enabled for PR #${prNumber}`);
             } catch (err) {
               core.warning(`Auto-merge failed: ${err.message}`);
             }
