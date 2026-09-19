@@ -1,6 +1,16 @@
 name: "Production Release"
 
 on:
+  # Primary trigger: fires after CI completes on main.
+  # This bypasses GitHub's GITHUB_TOKEN workflow-suppression rule —
+  # when auto-merge uses GITHUB_TOKEN the resulting push may not
+  # re-trigger push-based workflows, but workflow_run always fires.
+  workflow_run:
+    workflows: ["Continuous Integration & Delivery"]
+    types: [completed]
+    branches: [main]
+
+  # Fallback: direct push to main (e.g. manual hotfixes)
   push:
     branches:
       - "main"
@@ -10,6 +20,11 @@ permissions:
 
 jobs:
   release:
+    # For workflow_run: only proceed when CI passed
+    # For push:        always proceed (independent hotfix path)
+    if: |
+      github.event_name == 'push' ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     name: Semantic versioning and release
     runs-on: ubuntu-latest
     permissions:
