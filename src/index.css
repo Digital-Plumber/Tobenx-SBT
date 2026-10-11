@@ -97,3 +97,30 @@ body {
 }
 .sound-bar:nth-child(2) { animation-delay: 0.2s; }
 .sound-bar:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes seasonXCardIn {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.seasonx-card-enter {
+  opacity: 0;
+  animation: seasonXCardIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes seasonXTabProgress {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}

@@ -14,7 +14,7 @@ export default function ScrollVideoPopup({
   videoSrc = 'https://cdn.shopify.com/b/shopify-brochure2-assets/4ea4c67da04aea216ee972ec1b9bfb08.mp4',
   webmSrc  = 'https://cdn.shopify.com/b/shopify-brochure2-assets/524da6f828b5a55d571fafa1607b907f.webm',
   poster   = 'https://cdn.shopify.com/b/shopify-brochure2-assets/7ecd57f2fa3d7b997d29181a62c954ee.png?originalWidth=1920&originalHeight=1080&width=828',
-  title    = 'Shopify: Be the next',
+  title    = 'TobenX SBT: Be the next',
 }) {
   const videoRef     = useRef(null);
   const [visible, setVisible]   = useState(false);
@@ -142,7 +142,8 @@ export default function ScrollVideoPopup({
 
   const videoWrapStyle = {
     position: 'relative',
-    aspectRatio: '16/9',
+    // Keep the popup compact while retaining the full-width video preview.
+    height: '90px',
     background: '#000',
   };
 
