@@ -16,6 +16,12 @@ import NoBetterPlaceSection from './components/sections/NoBetterPlaceSection';
 import BestConvertingCheckoutSection from './components/sections/BestConvertingCheckoutSection';
 import RockSteadySection from './components/sections/RockSteadySection';
 import BuildFastSection from './components/sections/BuildFastSection';
+import AcademySection from './components/sections/AcademySection';
+import JobInSection from './components/sections/JobInSection';
+import TrustStatsBar from './components/sections/TrustStatsBar';
+import TestimonialsSection from './components/sections/TestimonialsSection';
+import HowItWorksSection from './components/sections/HowItWorksSection';
+import FinalCTABanner from './components/sections/FinalCTABanner';
 import Footer from './components/Footer/Footer';
 import ScrollVideoPopup from './components/common/ScrollVideoPopup';
 
@@ -33,6 +39,12 @@ export default function App() {
         <HeroSection />
         <SbtSection />
         <SeasonXSection />
+        <AcademySection />
+        <JobInSection />
+        <TrustStatsBar />
+        <TestimonialsSection />
+        <HowItWorksSection />
+        <FinalCTABanner />
         <LogosSection />
         <AgenticChatSection />
         <SellMoreInMorePlaces />

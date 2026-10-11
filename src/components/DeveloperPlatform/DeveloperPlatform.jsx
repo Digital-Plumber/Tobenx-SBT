@@ -69,11 +69,11 @@ export default function DeveloperPlatform() {
                 Equip autonomous AI shopping agents with full catalog search and instantaneous checkout tokens.
               </p>
             </div>
-            <div className="rounded-2xl overflow-hidden border border-zinc-700/60 bg-black">
+            <div className="rounded-2xl overflow-hidden border border-zinc-700/60 bg-black h-[320px] sm:h-[360px] lg:h-[420px]">
               <img
                 src={dev.leftCard.image.src}
                 alt={dev.leftCard.link.label}
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>
           </a>
@@ -99,11 +99,11 @@ export default function DeveloperPlatform() {
                 Deploy lightning-fast storefronts using Hydrogen and Remix hosted at edge globally on Oxygen.
               </p>
             </div>
-            <div className="rounded-2xl overflow-hidden border border-zinc-700/60 bg-black">
+            <div className="rounded-2xl overflow-hidden border border-zinc-700/60 bg-black h-[320px] sm:h-[360px] lg:h-[420px]">
               <img
                 src={dev.middleCard.image.src}
                 alt={dev.middleCard.link.label}
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>
           </a>
@@ -129,11 +129,11 @@ export default function DeveloperPlatform() {
                 Build apps and custom checkout extensions used by millions of global storefronts.
               </p>
             </div>
-            <div className="rounded-2xl overflow-hidden border border-zinc-700/60 bg-black">
+            <div className="rounded-2xl overflow-hidden border border-zinc-700/60 bg-black h-[320px] sm:h-[360px] lg:h-[420px]">
               <img
                 src={dev.rightCard.image.src}
                 alt={dev.rightCard.link.label}
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>
           </a>
