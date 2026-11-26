@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Volume2, Sparkles, CheckCircle } from 'lucide-react';
-import { shopifyData } from '../../data/shopifyData';
+import { tobenxSbtData } from '../../data/tobenxSbtData';
 
 export default function StatsSection() {
-  const rockSteady = shopifyData.rockSteady;
-  const stats = shopifyData.stats;
+  const rockSteady = tobenxSbtData.rockSteady;
+  const stats = tobenxSbtData.stats;
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
 
   const playCashRegisterSound = () => {
@@ -57,7 +57,7 @@ export default function StatsSection() {
                   isSoundFactoid ? 'border-emerald-500/40 bg-emerald-950/20 cursor-pointer' : ''
                 }`}
                 onClick={isSoundFactoid ? playCashRegisterSound : undefined}
-                title={isSoundFactoid ? 'Click to play Shopify cha-ching sound!' : undefined}
+                title={isSoundFactoid ? 'Click to play Tobenx SBT cha-ching sound!' : undefined}
               >
                 <div className="flex items-center justify-between mb-4">
                   <img src={factoid.image.src} alt="" className="w-8 h-8" />
@@ -68,7 +68,7 @@ export default function StatsSection() {
                           ? 'bg-[#6cd484] text-black border-[#6cd484] animate-bounce'
                           : 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:text-white'
                       }`}
-                      aria-label="Play Shopify sales sound"
+                      aria-label="Play Tobenx SBT sales sound"
                     >
                       <Volume2 size={16} />
                     </button>
@@ -100,7 +100,7 @@ export default function StatsSection() {
                 {stats.headingGroup.headingHtml}
               </h3>
               <p className="text-zinc-300 text-base leading-relaxed mb-8">
-                Shopify Checkout with Shop Pay converts up to 50% higher than guest checkout and exposes your brand to hundreds of millions of pre-verified buyers.
+                Tobenx SBT Checkout with Shop Pay converts up to 50% higher than guest checkout and exposes your brand to hundreds of millions of pre-verified buyers.
               </p>
 
               <div className="grid grid-cols-2 gap-4 pt-4 border-t border-zinc-800">

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { shopifyData } from '../../data/shopifyData';
+import { tobenxSbtData } from '../../data/tobenxSbtData';
 
 export default function GlobalSelling() {
-  const localGlobal = shopifyData.localGlobal;
+  const localGlobal = tobenxSbtData.localGlobal;
   const locales = localGlobal.locales;
   const [selectedCountryCode, setSelectedCountryCode] = useState('US');
   const [productType, setProductType] = useState('sweater');
@@ -19,13 +19,13 @@ export default function GlobalSelling() {
             <svg className="w-3.5 h-3.5">
               <use href="#icon-global-markets" />
             </svg>
-            <span>Shopify Markets</span>
+            <span>Tobenx SBT Markets</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
             {localGlobal.headingGroup.headingHtml}
           </h2>
           <p className="text-base sm:text-lg text-zinc-400">
-            Shopify takes the complexity out of international selling, from delivering products faster and more affordably to localising your experience.
+            Tobenx SBT takes the complexity out of international selling, from delivering products faster and more affordably to localising your experience.
           </p>
         </div>
 

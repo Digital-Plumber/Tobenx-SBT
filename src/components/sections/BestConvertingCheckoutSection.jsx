@@ -104,7 +104,7 @@ export default function BestConvertingCheckoutSection() {
             ].join(' ')}
           >
             <p className="richtext text-body-base border-l-2 border-avocado pl-[1em] relative text-gray-b text-pretty xl:max-w-[85%]">
-              <a data-component-name="cta-checkout" href="/ng/checkout">Shopify Checkout</a>
+              <a data-component-name="cta-checkout" href="/ng/checkout">Tobenx SBT Checkout</a>
               {' '}with{' '}
               <a data-component-name="cta-shop-pay" href="/ng/shop-pay">Shop Pay</a>
               {' '}converts up to 50% higher than guest checkout and exposes your brand to hundreds of millions of buyers.
@@ -125,7 +125,7 @@ export default function BestConvertingCheckoutSection() {
         <div className="col-span-4 xs:col-span-4 md:col-span-5 xs:col-start-1 md:col-start-8 flex flex-col gap-y-xl sm:col-span-3 sm:col-start-6">
           <div
             role="img"
-            aria-label="Image of Shopify's streamlined checkout with Shop Pay, PayPal, and Apple Pay"
+            aria-label="Image of Tobenx SBT's streamlined checkout with Shop Pay, PayPal, and Apple Pay"
             className="relative px-10 py-18 lg:px-5 sm:py-0 overflow-hidden sm:overflow-visible sm:mt-12"
           >
             {/* Layer 1: blurred glow ellipse (animates in first) */}

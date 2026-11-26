@@ -80,7 +80,7 @@ export default function SidekickSection({ onOpenVideo }) {
                 <a href="/ng/sidekick" className="text-[#36F4A4] underline hover:no-underline font-medium">
                   Sidekick
                 </a>
-                . Built right into your Shopify admin.
+                . Built right into your Tobenx SBT admin.
               </p>
             </div>
           </div>

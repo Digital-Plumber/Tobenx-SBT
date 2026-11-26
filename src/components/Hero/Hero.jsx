@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { shopifyData } from '../../data/shopifyData';
+import { tobenxSbtData } from '../../data/tobenxSbtData';
 import { validateEmail } from '../../utils/formatters';
 
 export default function Hero() {
@@ -46,7 +46,7 @@ export default function Hero() {
         </h1>
 
         <p className="text-lg md:text-xl text-zinc-400 max-w-2xl leading-relaxed mb-10">
-          Try Shopify free. Get more than ecommerce software with tools to manage every part of your business from day one.
+          Try Tobenx SBT free. Get more than ecommerce software with tools to manage every part of your business from day one.
         </p>
 
         {/* Email Signup Form */}
@@ -82,7 +82,7 @@ export default function Hero() {
             <div className="p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-2xl flex items-center gap-3 text-left">
               <CheckCircle2 size={24} className="text-[#6cd484] flex-shrink-0" />
               <div>
-                <strong className="text-white text-sm block">Welcome to Shopify!</strong>
+                <strong className="text-white text-sm block">Welcome to Tobenx SBT!</strong>
                 <p className="text-zinc-300 text-xs">Instructions have been sent to <span className="text-[#6cd484] font-semibold">{email}</span></p>
               </div>
             </div>
@@ -94,7 +94,7 @@ export default function Hero() {
           <div className="aspect-[16/9] w-full relative">
             <img
               src="https://cdn.shopify.com/b/shopify-brochure2-assets/4a9828c3264de541545637026e9de272.jpg"
-              alt="Shopify Platform Dashboard Experience"
+              alt="Tobenx SBT Platform Dashboard Experience"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
@@ -121,7 +121,7 @@ export default function Hero() {
             Trusted by the world’s most ambitious brands and millions of entrepreneurs
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 items-center justify-items-center opacity-70 hover:opacity-100 transition-opacity">
-            {shopifyData.logos.map((logo, idx) => (
+            {tobenxSbtData.logos.map((logo, idx) => (
               <div key={idx} className="h-10 flex items-center justify-center p-2 grayscale hover:grayscale-0 transition-all hover:scale-110" title={logo.alt}>
                 <img src={logo.srcSet} alt={logo.alt} className="max-h-8 max-w-[130px] object-contain invert" />
               </div>

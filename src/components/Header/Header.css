@@ -32,7 +32,7 @@
   z-index: 1001;
 }
 
-.shopify-bag-icon {
+.tobenx-sbt-bag-icon {
   flex-shrink: 0;
 }
 
@@ -163,24 +163,6 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-}
-
-.login-link {
-  display: none;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  padding: 0.5rem 0.75rem;
-}
-
-.login-link:hover {
-  color: var(--color-text-primary);
-}
-
-@media (min-width: 640px) {
-  .login-link {
-    display: inline-block;
-  }
 }
 
 .trial-btn {

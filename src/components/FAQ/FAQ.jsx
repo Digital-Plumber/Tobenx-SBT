@@ -24,7 +24,7 @@ export default function FAQ() {
           </div>
           <h2 className="section-title">Common questions & answers</h2>
           <p className="section-subtitle">
-            Everything you need to know about getting started, scaling, and selling with Shopify.
+            Everything you need to know about getting started, scaling, and selling with Tobenx SBT.
           </p>
         </div>
 

@@ -202,7 +202,7 @@ export default function GrowAroundTheWorld() {
                 </div>
               </div>
 
-              {/* Right column: Shopify checkout window */}
+              {/* Right column: Tobenx SBT checkout window */}
               <div className="flex items-center justify-center xl:w-1/2">
                 <div
                   className={[
@@ -214,7 +214,7 @@ export default function GrowAroundTheWorld() {
                   <img
                     className="object-contain w-full h-full drop-shadow-2xl"
                     src="https://cdn.shopify.com/b/shopify-brochure2-assets/e2171748bad7b4de048e4444e0128486.png?originalWidth=859&originalHeight=751"
-                    alt="Shopify checkout"
+                    alt="Tobenx SBT checkout"
                     loading="lazy"
                   />
                 </div>
@@ -226,9 +226,9 @@ export default function GrowAroundTheWorld() {
           <div className="z-10 pt-lg max-w-[65ch]">
             <h4 className="richtext text-t7 mb-sm text-white font-semibold">Sell across borders</h4>
             <p className="richtext text-body-base text-gray-300">
-              Shopify takes the complexity out of international selling, from delivering products faster and more affordably to localising your experience with{' '}
+              Tobenx SBT takes the complexity out of international selling, from delivering products faster and more affordably to localising your experience with{' '}
               <a href="/ng/international" className="text-[#36F4A4] underline hover:no-underline font-medium">
-                Shopify Markets
+                Tobenx SBT Markets
               </a>
               .
             </p>

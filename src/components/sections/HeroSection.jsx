@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { openTobenxChat } from '../../utils/chatEvents';
 
 /**
  * Tobenx Hero Section
@@ -407,10 +408,12 @@ export default function HeroSection() {
 
             {/* WhatsApp secondary */}
             <a
-              href="https://wa.me/2348000000000"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#chat"
               id="hero-cta-whatsapp"
+              onClick={(event) => {
+                event.preventDefault();
+                openTobenxChat();
+              }}
               style={{
                 display: 'flex', alignItems: 'center', gap: '10px',
                 padding: '13px 24px',

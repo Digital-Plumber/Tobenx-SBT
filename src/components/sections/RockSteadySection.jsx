@@ -17,14 +17,14 @@ const STATS = [
     id: 'gmv',
     value: '$1.6T+',
     label: 'in GMV',
-    description: 'Total commerce powered by Shopify merchants worldwide',
+    description: 'Total commerce powered by Tobenx SBT merchants worldwide',
     hasAudio: true,
   },
   {
     id: 'merchants',
     value: '150+',
     label: 'countries',
-    description: 'Shopify merchants sell in more than 150 countries globally',
+    description: 'Tobenx SBT merchants sell in more than 150 countries globally',
     hasAudio: false,
   },
   {
@@ -84,7 +84,7 @@ export default function RockSteadySection() {
               Rock steady. Blazing fast.
             </h3>
             <p className="richtext text-body-base text-gray-300">
-              Your Shopify store runs strong, even during your most epic product drops.
+              Your Tobenx SBT store runs strong, even during your most epic product drops.
             </p>
           </div>
 

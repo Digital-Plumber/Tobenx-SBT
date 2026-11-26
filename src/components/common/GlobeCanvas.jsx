@@ -6,7 +6,7 @@ import React, { useEffect, useRef } from 'react';
  * High-performance 2D Canvas 3D Rotating World Globe.
  * Renders:
  *  - 3D sphere grid with rotating meridians (longitude) & parallels (latitude)
- *  - Atmospheric outer radial glow matching Shopify brand colors (#36F4A4, #157076)
+ *  - Atmospheric outer radial glow matching Tobenx SBT brand colors (#36F4A4, #157076)
  *  - World continent landmass points & country hubs
  *  - Pulsing global merchant sales nodes (Lagos, New York, London, Tokyo, Sydney, Berlin, São Paulo)
  *  - Animated glowing arc trajectories (commerce moving around the world)

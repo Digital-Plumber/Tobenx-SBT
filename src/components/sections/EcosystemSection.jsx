@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 /**
  * Tobenx Ecosystem Section (Section 3)
  * ──────────────────────────────────────
- * Shopify-standard design system: dark mode, clean vector icons, no emojis, no long dashes.
+ * Tobenx SBT-standard design system: dark mode, clean vector icons, no emojis, no long dashes.
  */
 
 const ECOSYSTEM_CARDS = [
