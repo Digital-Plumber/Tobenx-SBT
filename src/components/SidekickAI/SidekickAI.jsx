@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Play, Pause, Volume2, VolumeX, Sparkles } from 'lucide-react';
-import { shopifyData } from '../../data/shopifyData';
+import { tobenxSbtData } from '../../data/tobenxSbtData';
 
 export default function SidekickAI() {
-  const sidekick = shopifyData.sidekick;
+  const sidekick = tobenxSbtData.sidekick;
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef(null);
@@ -45,7 +45,7 @@ export default function SidekickAI() {
             {sidekick.headingGroup.headingHtml}
           </h2>
           <p className="text-base sm:text-lg text-zinc-400">
-            Spot opportunities for growth and automate tedious tasks with Sidekick. Built right into your Shopify admin.
+            Spot opportunities for growth and automate tedious tasks with Sidekick. Built right into your Tobenx SBT admin.
           </p>
         </div>
 
@@ -55,7 +55,7 @@ export default function SidekickAI() {
           <div className="lg:col-span-7 bg-[#0c1417] border border-zinc-800 rounded-3xl p-6 sm:p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
             <div className="relative z-10 mb-8">
               <span className="inline-block px-3 py-1 bg-[#5433eb]/30 border border-[#5433eb]/50 text-xs font-bold text-[#c084fc] rounded-full mb-3">
-                Shopify Sidekick
+                Tobenx SBT Sidekick
               </span>
               <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-3">
                 {sidekick.sidekickCard.headingHtml}
@@ -68,7 +68,7 @@ export default function SidekickAI() {
             <div className="relative rounded-2xl overflow-hidden border border-zinc-700/60 shadow-2xl bg-black">
               <img
                 src={sidekick.sidekickCard.image.src}
-                alt="Shopify Sidekick AI Interface"
+                alt="Tobenx SBT Sidekick AI Interface"
                 className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
               />
             </div>

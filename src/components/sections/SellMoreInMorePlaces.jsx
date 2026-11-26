@@ -7,14 +7,14 @@ import useIntersectionObserver from '../../utils/useIntersectionObserver';
  * "Sell more in more places" — three commerce channel cards:
  *
  * Top card (full-width):
- *  card-ose — Shopify Online Store Editor demo video (autoplay muted loop)
+ *  card-ose — Tobenx SBT Online Store Editor demo video (autoplay muted loop)
  *
  * Bottom row (3 equal cards):
  *  card-channels — Social & Marketplace channels (screenshot image)
- *  card-pos      — Shopify POS hardware (device image)
+ *  card-pos      — Tobenx SBT POS hardware (device image)
  *  card-checkout — Shop app (device mockup image)
  *
- * All cards use the authentic Shopify `bg-deep-green` + `border-hairline-green`
+ * All cards use the authentic Tobenx SBT `bg-deep-green` + `border-hairline-green`
  * design system. Cards animate in (opacity + translate) on scroll.
  */
 export default function SellMoreInMorePlaces() {
@@ -58,7 +58,7 @@ export default function SellMoreInMorePlaces() {
             style={{ containerType: 'inline-size' }}
           >
             {/*
-             * OSE video — the Shopify Online Store Editor walkthrough.
+             * OSE video — the Tobenx SBT Online Store Editor walkthrough.
              * Autoplay + muted + loop so it plays without user interaction.
              * This is the authenticated visual from cdn.shopify.com.
              */}
@@ -73,7 +73,7 @@ export default function SellMoreInMorePlaces() {
                 loop
                 playsInline
                 preload="metadata"
-                aria-label="Shopify Online Store Editor demo"
+                aria-label="Tobenx SBT Online Store Editor demo"
               >
                 {/* WebM for Chrome/Firefox */}
                 <source
@@ -141,7 +141,7 @@ export default function SellMoreInMorePlaces() {
             </div>
           </div>
 
-          {/* Card 2: Shopify POS */}
+          {/* Card 2: Tobenx SBT POS */}
           <div
             data-component-name="card-pos"
             className={[
@@ -160,7 +160,7 @@ export default function SellMoreInMorePlaces() {
               <div className="sm:h-[600px] md:h-full flex items-center justify-center">
                 <img
                   src="https://cdn.shopify.com/b/shopify-brochure2-assets/8362556036e5ec5a6ec4bfdd390f804b.png?originalWidth=1920&originalHeight=1532"
-                  alt="Shopify POS hardware device"
+                  alt="Tobenx SBT POS hardware device"
                   className="w-full h-full object-contain object-bottom"
                   loading="lazy"
                   decoding="async"
@@ -181,7 +181,7 @@ export default function SellMoreInMorePlaces() {
                 <h4 className="richtext text-t7 mb-sm md:mb-xs text-pretty">Sell face to face</h4>
                 <p className="richtext text-body-base text-gray-a">
                   Sell in person and keep online and in-store sales in sync with{' '}
-                  <a data-component-name="cta-pos" href="/ng/pos">Shopify POS</a>.
+                  <a data-component-name="cta-pos" href="/ng/pos">Tobenx SBT POS</a>.
                 </p>
               </div>
             </div>

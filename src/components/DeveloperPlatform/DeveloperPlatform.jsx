@@ -1,9 +1,9 @@
 import React from 'react';
 import { ExternalLink, Sparkles } from 'lucide-react';
-import { shopifyData } from '../../data/shopifyData';
+import { tobenxSbtData } from '../../data/tobenxSbtData';
 
 export default function DeveloperPlatform() {
-  const dev = shopifyData.developer;
+  const dev = tobenxSbtData.developer;
 
   return (
     <section className="py-24 bg-black relative overflow-hidden" id="developer">
@@ -20,7 +20,7 @@ export default function DeveloperPlatform() {
             {dev.headingGroup.headingHtml}
           </h2>
           <p className="text-base sm:text-lg text-zinc-400">
-            Shopify's Universal Commerce Protocol and GraphQL APIs give developers the power to build custom, headless, and agentic commerce experiences.
+            Tobenx SBT's Universal Commerce Protocol and GraphQL APIs give developers the power to build custom, headless, and agentic commerce experiences.
           </p>
 
           {/* Badges */}
@@ -118,7 +118,7 @@ export default function DeveloperPlatform() {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
-                  Shopify APIs & Extensions
+                  Commerce APIs & Extensions
                 </span>
                 <ExternalLink size={16} className="text-zinc-500 group-hover:text-white transition-colors" />
               </div>

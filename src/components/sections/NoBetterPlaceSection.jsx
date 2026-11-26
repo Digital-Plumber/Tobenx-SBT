@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * Section 9: NoBetterPlaceSection
- * Authentic Shopify page section with exact styles, classes, and layout
+ * Authentic Tobenx SBT page section with exact styles, classes, and layout
  */
 export default function NoBetterPlaceSection() {
   return (

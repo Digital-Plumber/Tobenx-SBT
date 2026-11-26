@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { shopifyData } from '../../data/shopifyData';
+import { tobenxSbtData } from '../../data/tobenxSbtData';
 
 export default function ConversionSteps() {
-  const conversion = shopifyData.conversion;
+  const conversion = tobenxSbtData.conversion;
   const [activeStepIdx, setActiveStepIdx] = useState(0);
 
   const steps = [
@@ -22,7 +22,7 @@ export default function ConversionSteps() {
     {
       idx: 2,
       title: conversion.listItems[2], // "Set up payments"
-      desc: 'Activate Shopify Payments and Shop Pay to start taking secure credit cards, local wallets, and accelerated 1-click checkouts.',
+      desc: 'Activate Tobenx SBT Payments and Shop Pay to start taking secure credit cards, local wallets, and accelerated 1-click checkouts.',
       images: conversion.imageSets[2],
     },
   ];
@@ -44,7 +44,7 @@ export default function ConversionSteps() {
             {conversion.headingGroup.headingHtml}
           </h2>
           <p className="text-base sm:text-lg text-zinc-400">
-            From setup to first sale. Here is how simple it is to get your store live on Shopify.
+            From setup to first sale. Here is how simple it is to get your store live on Tobenx SBT.
           </p>
         </div>
 
@@ -106,7 +106,7 @@ export default function ConversionSteps() {
             Take your shot. Start for free.
           </h3>
           <p className="text-zinc-300 text-base sm:text-lg max-w-2xl mx-auto mb-8">
-            Try Shopify free, then enjoy your first month for $1. Join millions of merchants growing around the world.
+            Try Tobenx SBT free, then enjoy your first month for $1. Join millions of merchants growing around the world.
           </p>
           <a
             href="#trial"

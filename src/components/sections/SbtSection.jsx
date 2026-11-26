@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { openTobenxChat } from '../../utils/chatEvents';
 
 /**
  * Tobenx SBT Section (Section 4)
@@ -7,7 +8,7 @@ import React, { useState, useEffect } from 'react';
  * Sub: From your first website to full automation. We build the tech, you run the business.
  *
  * Carrier Container (matching AgenticChatSection):
- * - Top Left: 5 Overlapping Real Tech Brand Logos per service (Instagram, TikTok, AWS, GCP, Azure, ChatGPT, Gemini, Claude, Webflow, Shopify, etc.).
+ * - Top Left: 5 Overlapping Real Tech Brand Logos per service (Instagram, TikTok, AWS, GCP, Azure, ChatGPT, Gemini, Claude, Webflow, Tobenx SBT, etc.).
  * - Left: Auto-rotating text with smooth fade transition.
  * - Right: Video-like display updating seamlessly per active service.
  * - Zero emojis, zero long dashes.
@@ -16,9 +17,10 @@ import React, { useState, useEffect } from 'react';
 // ── BRAND LOGO VECTOR DEFINITIONS (100% reliable rendering) ──────────────────
 const LOGOS = {
   // Website Design Stack
-  shopify: (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <path d="M18.8 4.2c-.1 0-.3 0-.4.1L15 5.5 13.5.7c-.1-.3-.4-.5-.7-.5h-2c-.3 0-.6.2-.7.5L8.6 5.5l-3.4-1.2c-.1 0-.3-.1-.4-.1-.5 0-.9.4-.9.9 0 .1 0 .3.1.4l2.8 9.8L3 17.5c-.4.2-.6.7-.4 1.1.2.4.7.6 1.1.4l4.3-1.6 4 6c.2.3.5.4.8.4.3 0 .6-.1.8-.4l4-6 4.3 1.6c.1 0 .2.1.3.1.4 0 .8-.3.9-.7.2-.4 0-.9-.4-1.1l-3.8-2.2 2.8-9.8c.1-.1.1-.3.1-.4 0-.5-.4-.9-.9-.9z" fill="#95BF47"/>
+  tobenxSbt: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-label="Tobenx SBT">
+      <rect x="2" y="2" width="20" height="20" rx="6" fill="#0D1B5E" />
+      <path d="M7 7h10M12 7v10m-4 0h8" stroke="#15C44A" strokeWidth="2" strokeLinecap="round" />
     </svg>
   ),
   webflow: (
@@ -123,7 +125,7 @@ const SERVICES_DATA = [
     id: 'web-design',
     title: 'Website Design',
     badge: 'Popular',
-    desc: 'Fast, mobile-first websites that convert visitors into customers. Built with industry-standard platforms like Webflow, WordPress, Shopify, React, and Next.js.',
+    desc: 'Fast, mobile-first websites that convert visitors into customers. Built with industry-standard platforms like Webflow, WordPress, Tobenx SBT, React, and Next.js.',
     ctaText: 'See Website Plans →',
     ctaLink: '#contact',
     videoSrc: 'https://cdn.shopify.com/b/shopify-brochure2-assets/4ea4c67da04aea216ee972ec1b9bfb08.mp4',
@@ -131,7 +133,7 @@ const SERVICES_DATA = [
     partnerLogos: [
       { name: 'Webflow', icon: LOGOS.webflow },
       { name: 'WordPress', icon: LOGOS.wordpress },
-      { name: 'Shopify', icon: LOGOS.shopify },
+      { name: 'Tobenx SBT', icon: LOGOS.tobenxSbt },
       { name: 'React', icon: LOGOS.react },
       { name: 'Next.js', icon: LOGOS.nextjs },
     ],
@@ -202,8 +204,8 @@ export default function SbtSection({
   primaryCta = { label: 'Book a Free Strategy Call', href: '#contact' },
   secondaryCta = {
     label: 'Chat With Us on WhatsApp',
-    href: "https://wa.me/2348000000000?text=Hi%20Tobenx,%20I'd%20like%20to%20book%20a%20strategy%20call",
-    external: true,
+    href: '#chat',
+    external: false,
   },
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -540,6 +542,7 @@ export default function SbtSection({
             {/* Secondary WhatsApp CTA */}
             <a
               href={secondaryCta.href}
+              onClick={secondaryCta.href === '#chat' ? (event) => { event.preventDefault(); openTobenxChat(); } : undefined}
               target={secondaryCta.external ? '_blank' : undefined}
               rel={secondaryCta.external ? 'noopener noreferrer' : undefined}
               style={{

@@ -5,7 +5,7 @@
 
 export const globalMarketsData = {
   title: 'Sell across borders',
-  subtitle: 'Shopify takes the complexity out of international selling, from delivering products faster to localizing customer checkout with Shopify Markets.',
+  subtitle: 'Tobenx SBT takes the complexity out of international selling, from delivering products faster to localizing customer checkout with Tobenx SBT Markets.',
   countries: [
     {
       code: 'US',

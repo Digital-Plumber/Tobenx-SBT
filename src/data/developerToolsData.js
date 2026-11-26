@@ -5,7 +5,7 @@
 export const developerToolsData = {
   heading: 'Hyperdriven by AI. Commerce to the core.',
   subheading:
-    'Shopify’s Universal Commerce Protocol and GraphQL APIs give developers full freedom to build headless, custom, and agentic commerce experiences.',
+    'Tobenx SBT’s Universal Commerce Protocol and GraphQL APIs give developers full freedom to build headless, custom, and agentic commerce experiences.',
   features: [
     {
       id: 'custom-storefronts',

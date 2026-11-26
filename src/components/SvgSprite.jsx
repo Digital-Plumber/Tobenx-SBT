@@ -1,8 +1,8 @@
 import React from 'react';
-import svgContent from '../shopify-icons.svg?raw';
+import svgContent from '../tobenx-sbt-icons.svg?raw';
 
 /**
- * Embedded SVG sprite system for all Shopify custom icons
+ * Embedded SVG sprite system for all Tobenx SBT custom icons
  */
 export default function SvgSprite() {
   return (

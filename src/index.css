@@ -1,5 +1,5 @@
-/* Import official Shopify Tailwind v4 bundle styles */
-@import './shopify-theme.css';
+/* Import official Tobenx SBT Tailwind v4 bundle styles */
+@import './tobenx-sbt-theme.css';
 
 /* Global variables and modern enhancements */
 :root {
@@ -11,7 +11,7 @@
   --color-brand-light-green: #6cd484;
   --color-brand-purple: #5433eb;
   
-  --font-sans: Shopify-Inter, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: TobenxSBT-Inter, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {

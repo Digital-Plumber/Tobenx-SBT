@@ -4,7 +4,7 @@
 
 export const appsData = {
   heading: 'Customize everything with apps',
-  subheading: 'The Shopify App Store has 21,000+ commerce apps for whatever specialized features your business needs.',
+  subheading: 'The Tobenx SBT App Store has 21,000+ commerce apps for whatever specialized features your business needs.',
   countBadge: '21,000+ App Ecosystem',
   categories: [
     {

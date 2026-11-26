@@ -1,17 +1,17 @@
-# Tobenx Digital - Shopify Global Commerce Web Application
+# Tobenx Digital - Tobenx SBT Global Commerce Web Application
 
-An authentic, modern, modular, and developer-readable implementation of the official Shopify landing page built with **React 18**, **Vite 6**, and the **Shopify Tailwind v4 Design System**.
+An authentic, modern, modular, and developer-readable implementation of the official Tobenx SBT landing page built with **React 18**, **Vite 6**, and the **Tobenx SBT Tailwind v4 Design System**.
 
 ---
 
 ## 🌟 Highlights & Restored Capabilities
 
-- **Official Shopify Design System & Palette**: Full 255KB Tailwind v4 stylesheet with the exact dark canvas (`#000000`), emerald greens (`#008060`, `#6cd484`), pistachio accents, blurred radial lighting, and glassmorphic cards.
-- **Complete Vector Icon Sprite**: 35+ official SVG symbols (`#logo-shopify-bag`, `#icon-ai`, `#icon-boost`, `#icon-social`, `#icon-pos-tick`, `#icon-global-markets`, etc.).
-- **Interactive Multi-Channel Selling (3D Cards)**: Online Store, Shopify POS with handheld hardware, Multichannel selling (TikTok, IG, Google), and 1-click Shop Pay checkout.
+- **Official Tobenx SBT Design System & Palette**: Full 255KB Tailwind v4 stylesheet with the exact dark canvas (`#000000`), emerald greens (`#008060`, `#6cd484`), pistachio accents, blurred radial lighting, and glassmorphic cards.
+- **Complete Vector Icon Sprite**: 35+ official SVG symbols (`#logo-tobenx-sbt-mark`, `#icon-ai`, `#icon-boost`, `#icon-social`, `#icon-pos-tick`, `#icon-global-markets`, etc.).
+- **Interactive Multi-Channel Selling (3D Cards)**: Online Store, Tobenx SBT POS with handheld hardware, Multichannel selling (TikTok, IG, Google), and 1-click Shop Pay checkout.
 - **Sidekick Commerce AI & Video Player**: Official Sidekick admin UI showcase + playable merchant spotlight video with audio controls.
 - **Global Markets 13-Country Flag Carousel**: Dynamic country & currency switcher with live price conversions, VAT/duty calculation, and shipment map.
-- **Rock-Steady Scale Metrics with Interactive Audio**: Real-time sales velocity counters + **interactive audio button that plays the real Shopify cash register sound** on the $1.6T sales milestone!
+- **Rock-Steady Scale Metrics with Interactive Audio**: Real-time sales velocity counters + **interactive audio button that plays the real Tobenx SBT cash register sound** on the $1.6T sales milestone!
 - **Developer Platform & Headless Toolkit**: Direct code sandbox and documentation references for Hydrogen, Oxygen, and Universal Commerce Protocol (AI agents).
 - **App Store Ecosystem**: 21,000+ app ecosystem showcase with high-res source-set banner.
 - **3-Step Fast Onboarding ("Take Your Shot")**: Interactive step gallery with high-res storefront imagery.
@@ -32,8 +32,8 @@ shopy/
 │   ├── main.jsx                   # Application mount entry point
 │   ├── App.jsx                    # Root application layout coordinator
 │   ├── index.css                  # Custom theme variables and animation keyframes
-│   ├── shopify-theme.css          # Official Shopify Tailwind v4 stylesheet
-│   ├── shopify-icons.svg          # 35+ official SVG symbol definitions
+│   ├── tobenx-sbt-theme.css          # Official Tobenx SBT Tailwind v4 stylesheet
+│   ├── tobenx-sbt-icons.svg          # 35+ official SVG symbol definitions
 │   │
 │   ├── components/                # Modular, self-contained UI components
 │   │   ├── SvgSprite.jsx          # Embedded SVG sprite injector
@@ -50,7 +50,7 @@ shopy/
 │   │   └── Footer/                # Multi-column footer & country selector modal
 │   │
 │   ├── data/                      # Structured data models (easily editable by developers)
-│   │   ├── shopifyData.js         # Comprehensive extracted Shopify content & assets model
+│   │   ├── tobenxSbtData.js         # Comprehensive extracted Tobenx SBT content & assets model
 │   │   ├── brandLogos.js          # Featured partner brand logos
 │   │   ├── globalMarketsData.js   # Multi-region countries, currencies, and exchange pricing
 │   │   ├── statsData.js           # Reliability metrics and throughput figures

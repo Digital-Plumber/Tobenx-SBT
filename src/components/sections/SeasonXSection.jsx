@@ -1,4 +1,4 @@
-﻿﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Star } from 'lucide-react';
 import useIntersectionObserver from '../../utils/useIntersectionObserver';
 
@@ -240,17 +240,6 @@ export default function SeasonXSection() {
             </h2>
           </div>
 
-          <p
-            style={{
-              maxWidth: '330px',
-              margin: 0,
-              color: '#A7B3B8',
-              fontSize: '1rem',
-              lineHeight: 1.65,
-            }}
-          >
-            Curated drops for holidays, celebrations, gifting moments, and high-intent shopping seasons.
-          </p>
         </div>
 
         <div
@@ -477,16 +466,6 @@ export default function SeasonXSection() {
                     >
                       {prod.title}
                     </h4>
-                    <p
-                      style={{
-                        margin: '10px 0 0',
-                        color: '#A7B3B8',
-                        fontSize: '0.92rem',
-                        lineHeight: 1.55,
-                      }}
-                    >
-                      {prod.desc}
-                    </p>
                   </div>
                 </article>
               ))}

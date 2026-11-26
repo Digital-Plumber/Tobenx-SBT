@@ -2,7 +2,7 @@
   "name": "tobenx-digital",
   "version": "1.0.0",
   "private": true,
-  "description": "Tobenx Digital - Shopify modern commerce landing page application with clean, modular architecture.",
+  "description": "Tobenx Digital - Tobenx SBT modern commerce landing page application with clean, modular architecture.",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,8 +1,8 @@
 /**
- * Shopify Landing Page Data Model
+ * Tobenx SBT Landing Page Data Model
  * Extracted and structured for clean, developer-readable reference
  */
-export const shopifyData = {
+export const tobenxSbtData = {
   "header": {
     "background": "transparent_dark",
     "pathname": "/ng",
@@ -1471,14 +1471,14 @@ export const shopifyData = {
       ]
     },
     "backgroundVideo": {
-      "alt": "Footage of Shopify merchants making sales, managing their business, and celebrating their success.",
+      "alt": "Footage of Tobenx SBT merchants making sales, managing their business, and celebrating their success.",
       "mobilePortraitHevc": "https://cdn.shopify.com/b/shopify-brochure2-assets/65066fba5e42e093b8e6fcfa0b773ba2.mp4",
       "desktopLandscapeHevc": "https://cdn.shopify.com/b/shopify-brochure2-assets/4ea4c67da04aea216ee972ec1b9bfb08.mp4",
       "mobilePortraitAv1": "https://cdn.shopify.com/b/shopify-brochure2-assets/ed3cb8b89860a29c93b3cb2b68587c32.webm",
       "desktopLandscapeAv1": "https://cdn.shopify.com/b/shopify-brochure2-assets/524da6f828b5a55d571fafa1607b907f.webm",
       "poster": "https://cdn.shopify.com/b/shopify-brochure2-assets/7ecd57f2fa3d7b997d29181a62c954ee.png?originalWidth=1920&originalHeight=1080"
     },
-    "subheadHtml": "Dream big and build fast on Shopify. The world’s best commerce platform.",
+    "subheadHtml": "Dream big and build fast on Tobenx SBT. The world’s best commerce platform.",
     "signUpButton": {
       "children": "Start for free"
     },
@@ -1486,16 +1486,16 @@ export const shopifyData = {
       "children": "View plans",
       "href": "/ng/pricing"
     },
-    "videoButtonContent": "Why we build Shopify",
+    "videoButtonContent": "Why we build Tobenx SBT",
     "modal": {
-      "description": "Why we build Shopify"
+      "description": "Why we build Tobenx SBT"
     },
     "pricingButtonText": "See plans",
     "startTrialButtonText": "Start for free",
     "emailSignupFormDisclaimer": "You agree to receive marketing emails.",
     "signUpButtonDisclaimer": {
       "defaultText": "Start free then enjoy your first month for ",
-      "disclaimer": "By entering your email, you agree to receive marketing emails from Shopify."
+      "disclaimer": "By entering your email, you agree to receive marketing emails from Tobenx SBT."
     },
     "sectionName": "hero",
     "video": {
@@ -1507,7 +1507,7 @@ export const shopifyData = {
   },
   "conversion": {
     "headingGroup": {
-      "headingHtml": "Build fast on Shopify"
+      "headingHtml": "Build fast on Tobenx SBT"
     },
     "listItems": [
       "Add your first product",
@@ -1575,7 +1575,7 @@ export const shopifyData = {
       },
       "inlineVideo": null,
       "headingHtml": "Your very own commerce AI",
-      "subheadHtml": "Spot opportunities for growth and automate tedious tasks with <a data-component-name=\"cta-sidekick\" href=\"/ng/sidekick\">Sidekick</a>. Built right into your Shopify admin.",
+      "subheadHtml": "Spot opportunities for growth and automate tedious tasks with <a data-component-name=\"cta-sidekick\" href=\"/ng/sidekick\">Sidekick</a>. Built right into your Tobenx SBT admin.",
       "image": {
         "src": "https://cdn.shopify.com/b/shopify-brochure2-assets/97cf336291224b2612219d418a61eab1.png?originalWidth=2016&originalHeight=872"
       }
@@ -1595,13 +1595,13 @@ export const shopifyData = {
   "rockSteady": {
     "headingGroup": {
       "headingHtml": "Rock steady. Blazing fast.",
-      "subheadHtml": "Your Shopify store runs strong, even during your most epic product drops."
+      "subheadHtml": "Your Tobenx SBT store runs strong, even during your most epic product drops."
     },
-    "alt": "Animation of rotating globe with lines showing sales from Shopify merchants to customers near and far",
+    "alt": "Animation of rotating globe with lines showing sales from Tobenx SBT merchants to customers near and far",
     "factoids": [
       {
         "headingHtml": "Every 26 seconds",
-        "subheadHtml": "an entrepreneur on Shopify makes their first sale",
+        "subheadHtml": "an entrepreneur on Tobenx SBT makes their first sale",
         "id": "first-sale",
         "image": {
           "src": "https://cdn.shopify.com/b/shopify-brochure2-assets/535f5bd718e99a811b4e0b9dfa3faa08.svg"
@@ -1609,7 +1609,7 @@ export const shopifyData = {
       },
       {
         "headingHtml": "175 countries",
-        "subheadHtml": "with merchants selling on Shopify",
+        "subheadHtml": "with merchants selling on Tobenx SBT",
         "id": "175-countries",
         "image": {
           "src": "https://cdn.shopify.com/b/shopify-brochure2-assets/abefb771c26d7d89ee1d501fbecdff72.svg"
@@ -1617,7 +1617,7 @@ export const shopifyData = {
       },
       {
         "headingHtml": "MILLIONS",
-        "subheadHtml": "of merchants on Shopify",
+        "subheadHtml": "of merchants on Tobenx SBT",
         "id": "2-million-merchants",
         "image": {
           "src": "https://cdn.shopify.com/b/shopify-brochure2-assets/519326ee42b4907f602db4a4008310d8.svg"
@@ -1654,9 +1654,9 @@ export const shopifyData = {
   "stats": {
     "headingGroup": {
       "headingHtml": "The world’s best-converting checkout",
-      "subheadHtml": "<a data-component-name=\"cta-checkout\" href=\"/ng/checkout\">Shopify Checkout</a> with <a data-component-name=\"cta-shop-pay\" href=\"/ng/shop-pay\">Shop Pay</a> converts up to 50% higher than guest checkout and exposes your brand to hundreds of millions of buyers."
+      "subheadHtml": "<a data-component-name=\"cta-checkout\" href=\"/ng/checkout\">Tobenx SBT Checkout</a> with <a data-component-name=\"cta-shop-pay\" href=\"/ng/shop-pay\">Shop Pay</a> converts up to 50% higher than guest checkout and exposes your brand to hundreds of millions of buyers."
     },
-    "alt": "Image of Shopify’s streamlined and easy-to-use checkout with multiple payment options: Shop Pay, PayPal, and Apple Pay",
+    "alt": "Image of Tobenx SBT’s streamlined and easy-to-use checkout with multiple payment options: Shop Pay, PayPal, and Apple Pay",
     "stats": [
       {
         "heading": "Higher conversions",
@@ -1724,12 +1724,12 @@ export const shopifyData = {
   "developer": {
     "headingGroup": {
       "headingHtml": "Hyperdriven by AI. Commerce to the core.",
-      "subheadHtml": "Shopify's <a data-component-name=\"cta-ucp\" href=\"/ng/ucp\">Universal Commerce Protocol</a> and <a data-component-name=\"cta-shopify-dev\" href=\"https://shopify.dev\" target=\"_blank\" rel=\"noopener noreferrer\">APIs, tools, and primitives</a> give devs the power to build agentic commerce experiences that businesses are looking for."
+      "subheadHtml": "Tobenx SBT's <a data-component-name=\"cta-ucp\" href=\"/ng/ucp\">Universal Commerce Protocol</a> and <a data-component-name=\"cta-shopify-dev\" href=\"https://shopify.dev\" target=\"_blank\" rel=\"noopener noreferrer\">APIs, tools, and primitives</a> give devs the power to build agentic commerce experiences that businesses are looking for."
     },
-    "alt": "Image with multiple screens showing examples of customizing Shopify checkout and building with Hydrogen, Shopify’s headless commerce toolkit",
+    "alt": "Image with multiple screens showing examples of customizing Tobenx SBT checkout and building with Hydrogen, Tobenx SBT’s headless commerce toolkit",
     "hydrogenBadgeProps": {
       "link": {
-        "text": "Hydrogen: Shopify’s headless commerce toolkit",
+        "text": "Hydrogen: Tobenx SBT’s headless commerce toolkit",
         "href": "https://hydrogen.shopify.dev"
       },
       "componentName": "cta-hydrogen"
@@ -1798,7 +1798,7 @@ export const shopifyData = {
   "apps": {
     "headingGroup": {
       "headingHtml": "Customize everything with apps",
-      "subheadHtml": "The Shopify App Store has <a data-component-name=\"cta-app-store\" href=\"https://apps.shopify.com/\" target=\"_blank\" rel=\"noopener noreferrer\">21,000+ commerce apps</a> for whatever specialized features your business might need."
+      "subheadHtml": "The Tobenx SBT App Store has <a data-component-name=\"cta-app-store\" href=\"https://apps.shopify.com/\" target=\"_blank\" rel=\"noopener noreferrer\">21,000+ commerce apps</a> for whatever specialized features your business might need."
     },
     "alt": "Scrolling animation with hundreds of logos of our top commerce apps",
     "sectionName": "apps",
@@ -1832,7 +1832,7 @@ export const shopifyData = {
     "card": {
       "headingGroup": {
         "headingHtml": "Sell across borders",
-        "subheadHtml": "Shopify takes the complexity out of international selling, from delivering products faster and more affordably to localising your experience with <a data-component-name=\"cta-markets\" href=\"/ng/international\">Shopify Markets</a>."
+        "subheadHtml": "Tobenx SBT takes the complexity out of international selling, from delivering products faster and more affordably to localising your experience with <a data-component-name=\"cta-markets\" href=\"/ng/international\">Tobenx SBT Markets</a>."
       }
     },
     "orderLabel": "Order for",
@@ -2102,10 +2102,10 @@ export const shopifyData = {
     "posCard": {
       "headingGroup": {
         "headingHtml": "Sell face to face",
-        "subheadHtml": "Sell in person and keep online and in-store sales in sync with <a data-component-name=\"cta-pos\" href=\"/ng/pos\">Shopify POS</a>."
+        "subheadHtml": "Sell in person and keep online and in-store sales in sync with <a data-component-name=\"cta-pos\" href=\"/ng/pos\">Tobenx SBT POS</a>."
       },
       "image": {
-        "alt": "Interactive animation of Shopify’s point-of-sale hardware",
+        "alt": "Interactive animation of Tobenx SBT’s point-of-sale hardware",
         "src": "https://cdn.shopify.com/b/shopify-brochure2-assets/a1f74a266c47e53fffb43c1200d55df8.png?originalWidth=1648&originalHeight=1200",
         "loading": "lazy"
       },
@@ -2134,9 +2134,9 @@ export const shopifyData = {
         "subheadHtml": "Automatically show up on the <a data-component-name=\"cta-shop\" href=\"/ng/shop\">Shop app</a>. Reach millions of pre-verified shoppers."
       },
       "rive": {
-        "alt": "Interactive animation showing how fast and easy Shopify checkout is to use",
+        "alt": "Interactive animation showing how fast and easy Tobenx SBT checkout is to use",
         "posterImage": {
-          "alt": "Interactive animation showing how fast and easy Shopify checkout is to use",
+          "alt": "Interactive animation showing how fast and easy Tobenx SBT checkout is to use",
           "src": "https://cdn.shopify.com/b/shopify-brochure2-assets/c9adc6792cb242038640a0d62c998462.png?originalWidth=1628&originalHeight=1860",
           "loading": "eager"
         },
@@ -2263,7 +2263,7 @@ export const shopifyData = {
       {
         "headingGroup": {
           "headingHtml": "Raise the bar",
-          "subheadHtml": "Iconic toymaker <strong>Mattel</strong> sells direct to shoppers all around the world. All powered by Shopify."
+          "subheadHtml": "Iconic toymaker <strong>Mattel</strong> sells direct to shoppers all around the world. All powered by Tobenx SBT."
         },
         "image": {
           "alt": "Photo of MATTEL corporate headquarters",
@@ -2296,7 +2296,7 @@ export const shopifyData = {
     },
     "bodyHtml": "Get discovered across AI channels. Shoppers check out right in the chat. You don’t lift a finger. All powered by <a data-component-name=\"cta-agentic-storefronts\" href=\"/ng/agentic-storefronts\">Agentic Storefronts</a>.",
     "image": {
-      "alt": "Product floating above a chat input bar with a glowing effect, representing Shopify's agentic commerce experience",
+      "alt": "Product floating above a chat input bar with a glowing effect, representing Tobenx SBT's agentic commerce experience",
       "src": "https://cdn.shopify.com/b/shopify-brochure2-assets/6e29826a044dfc54b160682dbbdb3783.png?originalWidth=2092&originalHeight=1742",
       "sizes": "(min-width: 900px) 40vw, 90vw"
     },

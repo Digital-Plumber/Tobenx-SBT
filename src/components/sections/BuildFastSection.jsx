@@ -4,7 +4,7 @@ import useIntersectionObserver from '../../utils/useIntersectionObserver';
 /**
  * Section 12: BuildFastSection
  * ─────────────────────────────
- * "Build fast on Shopify" — the final conversion section featuring:
+ * "Build fast on Tobenx SBT" — the final conversion section featuring:
  *  - 3-step onboarding list (01 Add product / 02 Customize / 03 Set up payments)
  *    • Active step highlights white, inactive dimmed
  *    • Steps auto-rotate every 2.5s
@@ -86,7 +86,7 @@ export default function BuildFastSection() {
         {/* Heading */}
         <div className="pb-xl pl-[40px] text-pretty sm:pl-0 sm:text-wrap sm:text-center">
           <h2 className="richtext text-t1" id="conversion-heading">
-            Build fast on Shopify
+            Build fast on Tobenx SBT
           </h2>
         </div>
 

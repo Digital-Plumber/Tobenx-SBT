@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TobenxLogo from '../common/TobenxLogo';
+import { openTobenxChat } from '../../utils/chatEvents';
 
 // ── Responsive hook ───────────────────────────────────────────────────────────
 function useIsDesktop(bp = 1024) {
@@ -244,28 +245,9 @@ export default function Header() {
             </nav>
           )}
 
-          {/* ── Desktop CTAs ── */}
+          {/* ── Desktop CTA ── */}
           {desktop && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
-              <a href="#login" id="header-login-btn" style={{
-                padding: '8px 18px', borderRadius: '8px',
-                background: 'rgba(255,255,255,0.07)',
-                border: '1px solid rgba(255,255,255,0.12)',
-                color: 'rgba(255,255,255,0.88)', fontSize: '14px', fontWeight: 600,
-                textDecoration: 'none', letterSpacing: '0.01em',
-                transition: 'background 0.15s, border-color 0.15s',
-              }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.12)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.07)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
-                }}
-              >
-                Log In
-              </a>
               <a href="#get-started" id="header-cta-btn" style={{
                 padding: '8px 20px', borderRadius: '8px',
                 background: `linear-gradient(135deg, ${BLUE} 0%, #0F3AAF 100%)`,
@@ -392,17 +374,8 @@ export default function Header() {
                 );
               })}
 
-              {/* Mobile CTAs */}
+              {/* Mobile CTA */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px' }}>
-                <a href="#login" onClick={() => setMobOpen(false)} style={{
-                  display: 'block', padding: '14px', textAlign: 'center',
-                  borderRadius: '10px',
-                  background: 'rgba(255,255,255,0.07)',
-                  border: '1px solid rgba(255,255,255,0.12)',
-                  color: '#fff', fontSize: '16px', fontWeight: 600, textDecoration: 'none',
-                }}>
-                  Log In
-                </a>
                 <a href="#get-started" onClick={() => setMobOpen(false)} style={{
                   display: 'block', padding: '14px', textAlign: 'center',
                   borderRadius: '10px',
@@ -419,10 +392,10 @@ export default function Header() {
       </header>
 
       {/* ══════════════════ WHATSAPP FAB ══════════════════ */}
-      <a href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer"
-        id="whatsapp-fab" aria-label="Chat with us on WhatsApp"
+      <a href="#chat" onClick={(event) => { event.preventDefault(); openTobenxChat(); }}
+        id="whatsapp-fab" aria-label="Open chat with Tobenx"
         style={{
-          position: 'fixed', bottom: '28px', right: '24px', zIndex: 9999,
+          position: 'fixed', bottom: '28px', left: '24px', zIndex: 9999,
           width: '56px', height: '56px', borderRadius: '50%',
           background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
           color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',

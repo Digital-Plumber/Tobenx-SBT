@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { shopifyData } from '../../data/shopifyData';
+import { tobenxSbtData } from '../../data/tobenxSbtData';
 
 export default function OnlineInPerson() {
   const [activeCard, setActiveCard] = useState('online');
-  const onlineData = shopifyData.online;
+  const onlineData = tobenxSbtData.online;
 
   const cards = [
     {
@@ -17,7 +17,7 @@ export default function OnlineInPerson() {
     },
     {
       id: 'pos',
-      tag: 'Shopify POS',
+      tag: 'Tobenx SBT POS',
       icon: '#icon-pos-tick',
       title: 'Sell face to face in retail and pop-ups',
       sub: 'Sell in person and keep online and in-store sales, inventory, and staff permissions fully in sync.',

@@ -1,9 +1,9 @@
 import React from 'react';
 import { ExternalLink, Sparkles } from 'lucide-react';
-import { shopifyData } from '../../data/shopifyData';
+import { tobenxSbtData } from '../../data/tobenxSbtData';
 
 export default function AppStoreSection() {
-  const apps = shopifyData.apps;
+  const apps = tobenxSbtData.apps;
 
   return (
     <section className="py-24 bg-[#02090a] relative overflow-hidden" id="apps">
@@ -20,7 +20,7 @@ export default function AppStoreSection() {
             {apps.headingGroup.headingHtml}
           </h2>
           <p className="text-base sm:text-lg text-zinc-400">
-            The Shopify App Store has 21,000+ commerce apps for whatever specialized features your business needs.
+            The Tobenx SBT App Store has 21,000+ commerce apps for whatever specialized features your business needs.
           </p>
         </div>
 
