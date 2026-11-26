@@ -44,7 +44,7 @@ jobs:
         env:
           BRANCH_NAME: ${{ steps.vars.outputs.branch }}
         with:
-          github-token: ${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const owner = context.repo.owner;
             const repo  = context.repo.repo;
@@ -120,8 +120,7 @@ jobs:
 
   # ──────────────────────────────────────────────────────────────
   # Merge PR to main once validation passes
-  #   • Uses PR_TOKEN (PAT) so the resulting push to main re-triggers
-  #     downstream workflows (GITHUB_TOKEN pushes are suppressed).
+  #   • Uses the built-in GITHUB_TOKEN, so no PAT or secret rotation is needed.
   #   • Push path  → PR number comes from create_pr output
   #   • PR event path → PR number comes from event payload
   # ──────────────────────────────────────────────────────────────
@@ -148,10 +147,7 @@ jobs:
       - name: Sync branch with main & merge PR
         uses: actions/github-script@v7
         with:
-          # PAT required — GITHUB_TOKEN merges are suppressed by GitHub
-          # and will NOT re-trigger the release workflow on main.
-          # Add a repo secret named PR_TOKEN with a PAT that has repo scope.
-          github-token: ${{ secrets.PR_TOKEN || secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const owner = context.repo.owner;
             const repo  = context.repo.repo;
