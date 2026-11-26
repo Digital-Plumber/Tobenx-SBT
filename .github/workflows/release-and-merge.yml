@@ -10,7 +10,7 @@ on:
     types: [completed]
     branches: [main]
 
-  # Fallback: direct push to main (e.g. manual hotfixes)
+  # Fallback for direct pushes or hotfixes to main
   push:
     branches:
       - "main"
@@ -18,10 +18,12 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: production-release
+  cancel-in-progress: false
+
 jobs:
   release:
-    # For workflow_run: only proceed when CI passed
-    # For push:        always proceed (independent hotfix path)
     if: |
       github.event_name == 'push' ||
       (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
@@ -32,7 +34,6 @@ jobs:
       issues: write
       pull-requests: write
       id-token: write
-#st
     steps:
       - name: Check out repository
         uses: actions/checkout@v4

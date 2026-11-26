@@ -81,13 +81,7 @@ jobs:
   # Lint, test, and validate versioning on feature pushes and PRs
   # ──────────────────────────────────────────────────────────────
   validate:
-    if: |
-      github.event_name == 'pull_request' || (
-        github.event_name == 'push' && (
-          startsWith(github.ref, 'refs/heads/feature/') ||
-          startsWith(github.ref, 'refs/heads/feat/')
-        )
-      )
+    if: github.event_name == 'pull_request'
     name: Validate (lint, test, version-check)
     runs-on: ubuntu-latest
     permissions:
@@ -120,24 +114,13 @@ jobs:
 
   # ──────────────────────────────────────────────────────────────
   # Merge PR to main once validation passes
-  #   • Uses the built-in GITHUB_TOKEN, so no PAT or secret rotation is needed.
-  #   • Push path  → PR number comes from create_pr output
-  #   • PR event path → PR number comes from event payload
   # ──────────────────────────────────────────────────────────────
   merge_pr:
-    needs: [create_pr, validate]
+    needs: [validate]
     if: |
-      always() &&
-      needs.validate.result == 'success' && (
-        (
-          github.event_name == 'pull_request' &&
-          github.event.pull_request.draft == false
-        ) || (
-          github.event_name == 'push' &&
-          needs.create_pr.result == 'success' &&
-          needs.create_pr.outputs.pr_number != ''
-        )
-      )
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.draft == false &&
+      needs.validate.result == 'success'
     name: Merge PR to main
     runs-on: ubuntu-latest
     permissions:
@@ -151,9 +134,7 @@ jobs:
           script: |
             const owner = context.repo.owner;
             const repo  = context.repo.repo;
-            const prNumber =
-              context.payload.pull_request?.number ||
-              parseInt('${{ needs.create_pr.outputs.pr_number }}', 10);
+            const prNumber = context.payload.pull_request?.number;
 
             if (!prNumber) return core.setFailed('No PR number available');
 
