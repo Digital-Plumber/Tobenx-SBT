@@ -1,6 +1,7 @@
 name: "Continuous Integration & Delivery"
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - "feature/**"
@@ -9,13 +10,16 @@ on:
   pull_request:
     branches:
       - "main"
-    types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
   contents: read
 
 env:
   NODE_VERSION: "22"
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   # ──────────────────────────────────────────────────────────────
@@ -81,7 +85,10 @@ jobs:
   # Lint, test, and validate versioning on feature pushes and PRs
   # ──────────────────────────────────────────────────────────────
   validate:
-    if: github.event_name == 'pull_request'
+    if: |
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/main')
     name: Validate (lint, test, version-check)
     runs-on: ubuntu-latest
     permissions:
@@ -101,11 +108,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: npm run lint
+      - name: Commit message check
+        if: github.event_name == 'pull_request'
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }}
 
-      - name: Test
-        run: npm test
+      - name: Lint, test, and build
+        run: npm run check
 
       - name: Semantic-release dry-run (validate commit messages & versioning)
         run: npx semantic-release --dry-run
@@ -159,6 +167,11 @@ jobs:
             }
 
             if (!pr) return core.setFailed('Could not retrieve PR details');
+
+            if (pr.state !== 'open') {
+              core.info(`PR #${prNumber} is already ${pr.state}; no merge needed.`);
+              return;
+            }
 
             if (pr.mergeable === false) {
               return core.setFailed(
