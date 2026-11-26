@@ -1,99 +1,131 @@
-# Tobenx Digital - Tobenx SBT Global Commerce Web Application
+# Tobenx Digital Website
 
-An authentic, modern, modular, and developer-readable implementation of the official Tobenx SBT landing page built with **React 18**, **Vite 6**, and the **Tobenx SBT Tailwind v4 Design System**.
+The Tobenx Digital website is a responsive React 18 and Vite 6 web application presenting the Tobenx ecosystem for African businesses, learners, creators, developers, and employers.
 
----
+The site helps visitors discover website design, AI automation, digital marketing, cloud services, seasonal e-commerce, technical training, and hiring opportunities.
 
-## 🌟 Highlights & Restored Capabilities
+## What the website offers
 
-- **Official Tobenx SBT Design System & Palette**: Full 255KB Tailwind v4 stylesheet with the exact dark canvas (`#000000`), emerald greens (`#008060`, `#6cd484`), pistachio accents, blurred radial lighting, and glassmorphic cards.
-- **Complete Vector Icon Sprite**: 35+ official SVG symbols (`#logo-tobenx-sbt-mark`, `#icon-ai`, `#icon-boost`, `#icon-social`, `#icon-pos-tick`, `#icon-global-markets`, etc.).
-- **Interactive Multi-Channel Selling (3D Cards)**: Online Store, Tobenx SBT POS with handheld hardware, Multichannel selling (TikTok, IG, Google), and 1-click Shop Pay checkout.
-- **Sidekick Commerce AI & Video Player**: Official Sidekick admin UI showcase + playable merchant spotlight video with audio controls.
-- **Global Markets 13-Country Flag Carousel**: Dynamic country & currency switcher with live price conversions, VAT/duty calculation, and shipment map.
-- **Rock-Steady Scale Metrics with Interactive Audio**: Real-time sales velocity counters + **interactive audio button that plays the real Tobenx SBT cash register sound** on the $1.6T sales milestone!
-- **Developer Platform & Headless Toolkit**: Direct code sandbox and documentation references for Hydrogen, Oxygen, and Universal Commerce Protocol (AI agents).
-- **App Store Ecosystem**: 21,000+ app ecosystem showcase with high-res source-set banner.
-- **3-Step Fast Onboarding ("Take Your Shot")**: Interactive step gallery with high-res storefront imagery.
-- **Multi-Region Selector**: Interactive modal supporting all 50+ global regions.
+- **Tobenx SBT services** — Website design, AI workflow automation, digital marketing, and cloud infrastructure.
+- **Season X** — A seasonal and fashion-focused e-commerce experience.
+- **Tobenx Academy** — On-demand courses, practical skill programs, career support, certification, and pathways to employment.
+- **JobIn** — Vetted talent discovery, SoftHire, CV building, iWork, and job listings.
+- **AI assistance** — An interactive on-page chat widget for website, automation, marketing, training, hiring, and pricing questions.
+- **Conversion-focused landing content** — Service explanations, testimonials, trust metrics, onboarding steps, and calls to action.
+- **Responsive experience** — Desktop, tablet, and mobile layouts built with modular React components and custom CSS.
 
----
+## Technology
 
-## 🏗️ Architecture & Project Structure
+- React 18
+- Vite 6
+- JavaScript and JSX
+- Custom CSS
+- Lucide React icons
+- GitHub Actions
+- Semantic Release
+- Commitlint
 
-```
-shopy/
-├── .github/
-│   └── workflows/
-│       └── ci.yml                 # Continuous Integration and automated quality gate
-├── public/
-│   └── favicon.svg                # Vector brand favicon
+## Project structure
+
+```text
+.
+├── .github/workflows/
+│   ├── ci.yml                 # Validation, PR creation, rebase, merge, and CI
+│   └── release-and-merge.yml # Production release automation
+├── public/                    # Public static assets
 ├── src/
-│   ├── main.jsx                   # Application mount entry point
-│   ├── App.jsx                    # Root application layout coordinator
-│   ├── index.css                  # Custom theme variables and animation keyframes
-│   ├── tobenx-sbt-theme.css          # Official Tobenx SBT Tailwind v4 stylesheet
-│   ├── tobenx-sbt-icons.svg          # 35+ official SVG symbol definitions
-│   │
-│   ├── components/                # Modular, self-contained UI components
-│   │   ├── SvgSprite.jsx          # Embedded SVG sprite injector
-│   │   ├── Header/                # Sticky header, dropdowns & mobile drawer
-│   │   ├── Hero/                  # Hero banner, email validation form & partner logo marquee
-│   │   ├── OnlineInPerson/        # 4-pillar selling switcher (Online Store, POS, Social, Shop Pay)
-│   │   ├── SidekickAI/            # Sidekick AI showcase & playable video testimonial
-│   │   ├── GlobalSelling/         # 13-country flag carousel & dynamic checkout calculator
-│   │   ├── StatsSection/          # Scale factoids + interactive cash register sound trigger
-│   │   ├── DeveloperPlatform/     # Developer tools, Hydrogen & AI Agent guides
-│   │   ├── AppStoreSection/       # 21,000+ app ecosystem showcase
-│   │   ├── ConversionSteps/       # 3-step fast onboarding guide ("Take your shot")
-│   │   ├── FAQ/                   # Interactive accordion FAQ
-│   │   └── Footer/                # Multi-column footer & country selector modal
-│   │
-│   ├── data/                      # Structured data models (easily editable by developers)
-│   │   ├── tobenxSbtData.js         # Comprehensive extracted Tobenx SBT content & assets model
-│   │   ├── brandLogos.js          # Featured partner brand logos
-│   │   ├── globalMarketsData.js   # Multi-region countries, currencies, and exchange pricing
-│   │   ├── statsData.js           # Reliability metrics and throughput figures
-│   │   ├── developerToolsData.js  # Developer SDKs and code samples
-│   │   ├── appsData.js            # App Store categories and top apps
-│   │   └── faqData.js             # Frequently asked questions and answers
-│   │
-│   └── utils/
-│       └── formatters.js          # Currency formatting and email validation utilities
-│
-├── index.html                     # HTML5 entry template with Google Fonts integration
-├── package.json                   # Build scripts and dependencies
-├── vite.config.js                 # Fast development and production build pipeline
-└── README.md                      # Developer documentation and reference guide
+│   ├── components/
+│   │   ├── common/            # Shared UI, logo, chat, globe, and video components
+│   │   ├── Header/            # Navigation and region controls
+│   │   ├── Footer/            # Footer links and contact actions
+│   │   └── sections/          # Landing-page sections
+│   ├── data/                  # Structured content and configuration
+│   ├── utils/                 # Shared events and formatting helpers
+│   ├── App.jsx                # Main application composition
+│   └── main.jsx               # React entry point
+├── .releaserc.json            # Semantic-release configuration
+├── commitlint.config.js       # Conventional commit rules
+└── package.json
 ```
 
----
+## Local development
 
-## 🚀 Quick Start
+### Requirements
 
-### 1. Prerequisites
-- **Node.js** >= 18.0.0 (or Node 24.x)
-- **npm** >= 9.0.0
+- Node.js 22
+- npm
 
-### 2. Installation
+### Install
+
 ```bash
-npm install
+npm ci
 ```
 
-### 3. Run Development Server
+### Run locally
+
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 4. Build for Production
+Vite prints the local development URL when it starts, typically `http://localhost:5173`.
+
+### Production build
+
 ```bash
 npm run build
 ```
-Generates the optimized production build in `dist/`.
 
-### 5. Validate Quality & Run CI Checks
+The optimized build is generated in `dist/`.
+
+### Preview the production build
+
+```bash
+npm run preview
+```
+
+### Run the quality gate
+
 ```bash
 npm run check
 ```
-Runs lint checks, test suites, and production build verification.
+
+This runs:
+
+1. The lint script.
+2. The test script.
+3. The Vite production build.
+
+## Git workflow
+
+Use conventional commit messages:
+
+```text
+feat: add a new website section
+fix: correct mobile navigation
+ci: update workflow configuration
+chore: update dependencies
+docs: improve setup documentation
+```
+
+Feature branches should use the `feature/*` or `feat/*` naming pattern. Pushing a feature branch creates or updates a pull request targeting `main`.
+
+GitHub Actions validates the pull request and, after validation succeeds, handles the merge and subsequent release process.
+
+## CI and release automation
+
+The CI workflow:
+
+- Creates or updates a PR for feature branches.
+- Runs Commitlint for PR commits.
+- Runs lint, test, and production build checks.
+- Runs a semantic-release dry-run.
+- Rebases the feature branch onto `main` where possible.
+- Merges the validated PR.
+
+The release workflow runs after successful CI on `main` or after a direct push to `main`. It runs the quality gate and semantic-release to calculate versions and publish GitHub release metadata.
+
+## Deployment
+
+Build the application with `npm run build` and deploy the contents of `dist/` to the target static host or CDN.
+
+No backend server is required for the current implementation. External videos and images are loaded directly from their configured URLs.
