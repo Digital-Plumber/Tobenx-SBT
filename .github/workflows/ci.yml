@@ -135,6 +135,45 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - name: Checkout pull request branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Rebase feature branch onto main
+        env:
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+
+          if ! git rebase origin/main; then
+            while git diff --name-only --diff-filter=U | grep -E '^(CHANGELOG\.md|package(-lock)?\.json|\.github/workflows/)'; do
+              git diff --name-only --diff-filter=U |
+                grep -E '^(CHANGELOG\.md|package(-lock)?\.json|\.github/workflows/)' |
+                while IFS= read -r file; do
+                  git checkout --ours -- "$file"
+                  git add -- "$file"
+                done
+
+              if ! git rebase --continue; then
+                break
+              fi
+            done
+
+            unresolved=$(git diff --name-only --diff-filter=U)
+            if [ -n "$unresolved" ]; then
+              git rebase --abort
+              echo "::error::Rebase blocked by genuine source conflicts: $unresolved"
+              exit 1
+            fi
+          fi
+
+          git push --force-with-lease origin "HEAD:${HEAD_BRANCH}"
+
       - name: Sync branch with main & merge PR
         uses: actions/github-script@v7
         with:
@@ -146,15 +185,8 @@ jobs:
 
             if (!prNumber) return core.setFailed('No PR number available');
 
-            // ── Phase 1: Sync feature branch with latest main ──────────
-            try {
-              await github.rest.pulls.updateBranch({ owner, repo, pull_number: prNumber });
-              core.info(`Branch synced with main. Waiting for GitHub to recalculate merge state...`);
-              await new Promise(r => setTimeout(r, 8000));
-            } catch (syncErr) {
-              // "422 already up to date" is fine; real errors are logged
-              core.info(`Branch sync: ${syncErr.message}`);
-            }
+            // ── Phase 1: Wait for GitHub to recalculate the rebased PR ──
+            await new Promise(r => setTimeout(r, 8000));
 
             // ── Phase 2: Poll until GitHub resolves the mergeable state ─
             let pr;
